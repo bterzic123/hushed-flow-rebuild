@@ -1,0 +1,1203 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="dark">
+<meta http-equiv="Cache-Control" content="no-cache, must-revalidate">
+<title>Growth Audit — Hushed</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Figtree:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  color-scheme: only dark;
+  /* ---- Hushed, extracted from their live screens (dark is their shipping theme) ---- */
+  --hu-bg:#45171F; --hu-card:#4E2028; --hu-line:rgba(255,255,255,.09); --hu-chip:#5D343B;
+  --hu-coral:#E56543; --hu-price:#E8795C; --hu-cta-ink:#5F1409;
+  --hu-ink:#FFFFFF; --hu-txt:rgba(255,255,255,.80); --hu-muted:rgba(255,255,255,.50);
+  --hu-foot:#3E131B; --hu-halo:#55212A; --hu-halo2:#4D1C25; --hu-glyph:rgba(255,255,255,.07);
+  --hu-sheet:#FFFFFF; --hu-sheet-ink:#3B0A14; --hu-sheet-txt:#4A2A30; --hu-sheet-card:#FBF1EE; --hu-sheet-line:#F0DCD6;
+  --hu-dark-btn:#30030D; --hu-home:#3D3D3D; --hu-home-card:#4A4A4A;
+  --r-ctl:24px; --r-media:16px;
+  /* ---- the report shell, in Hushed's own palette ---- */
+  --bg:#3A121A; --bg2:#45171F; --surf:#4E2028;
+  --hair:rgba(255,236,232,.10); --hair2:rgba(255,236,232,.18);
+  --ink:#FFF6F3; --ink2:rgba(255,240,236,.78); --ink3:rgba(255,236,232,.52);
+  --accent:#E56543; --accent-lift:#F28B6B; --on-accent:#5F1409;
+  --panel:#FFFFFF; --panel-ink:#2A0A10; --panel-muted:#7A6266; --panel-line:#F0E4E1;
+  --accent-ink:#B7401F;
+}
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--ink);
+  font-family:'Figtree',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;
+  font-size:15px;line-height:1.6;-webkit-font-smoothing:antialiased}
+button{font:inherit;color:inherit;background:none;border:none;cursor:pointer}
+a{color:inherit}
+.wrap{max-width:1080px;margin:0 auto;padding:0 32px}
+@media(max-width:700px){.wrap{padding:0 20px}}
+
+/* ============ top bar ============ */
+.nav{position:sticky;top:0;z-index:70;background:rgba(58,18,26,.86);backdrop-filter:blur(18px) saturate(160%);
+  border-bottom:1px solid var(--hair)}
+.nav-in{max-width:1080px;margin:0 auto;padding:0 32px;height:58px;display:flex;align-items:center;gap:18px}
+@media(max-width:700px){.nav-in{padding:0 16px;gap:12px}}
+.nav-brand{display:flex;align-items:center;gap:9px;font-size:13.5px;font-weight:600;letter-spacing:-.01em}
+.nav-brand .mk{width:28px;height:28px;flex:none;display:block}
+.nav-brand .mk svg{width:28px;height:28px;display:block}
+.nav-brand span{color:var(--ink2);font-weight:500}
+.nav-brand b{color:var(--ink);font-weight:600}
+.nav-links{margin-left:auto;display:flex;gap:2px;align-items:center}
+.nav-links button{padding:7px 14px;border-radius:8px;font-size:13px;font-weight:600;color:var(--ink3);transition:.16s}
+.nav-links button:hover{color:var(--ink)}
+.nav-links button.on{color:var(--ink);background:rgba(255,255,255,.09)}
+@media(max-width:640px){.nav-brand span{display:none}}
+
+.view{display:none}
+.view.on{display:block}
+
+/* ============ hero ============ */
+.hero{padding:96px 0 0;text-align:center;position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;top:-330px;left:50%;transform:translateX(-50%);
+  width:1100px;height:640px;border-radius:50%;pointer-events:none;
+  background:radial-gradient(closest-side,rgba(229,101,67,.24),transparent 72%)}
+.hero::after{content:'';position:absolute;inset:0;pointer-events:none;z-index:0;
+  background:radial-gradient(40% 50% at 8% 22%,rgba(110,40,52,.55),transparent 70%),
+   radial-gradient(38% 45% at 92% 16%,rgba(110,40,52,.5),transparent 70%)}
+.hero>*{position:relative;z-index:1}
+.hero-badge{width:84px;height:84px;margin:0 auto 22px;display:block}
+.eyebrow{font-size:11.5px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--accent-lift);margin-bottom:22px}
+.hero h1{font-family:'Fraunces',Georgia,serif;font-size:80px;line-height:.98;font-weight:600;letter-spacing:-.03em;margin:0 0 24px;color:var(--accent)}
+@media(max-width:820px){.hero h1{font-size:54px}.hero{padding-top:64px}}
+.hero .lede{font-size:20px;line-height:1.5;font-weight:400;color:var(--ink2);max-width:600px;margin:0 auto;letter-spacing:-.012em}
+@media(max-width:820px){.hero .lede{font-size:17px}}
+.hero .meta{margin-top:30px;font-size:12.5px;color:var(--ink3);letter-spacing:.02em}
+.hero .meta b{color:var(--ink2);font-weight:600}
+
+.stats{display:flex;justify-content:center;gap:0;margin:66px auto 0;max-width:760px;
+  border-top:1px solid var(--hair);border-bottom:1px solid var(--hair)}
+.stat{flex:1;padding:26px 14px;text-align:center;border-left:1px solid var(--hair)}
+.stat:first-child{border-left:none}
+.stat b{display:block;font-size:26px;font-weight:700;letter-spacing:-.03em;color:var(--ink)}
+.stat span{display:block;font-size:11.5px;color:var(--ink3);margin-top:5px;line-height:1.35}
+@media(max-width:700px){.stat b{font-size:19px}.stat{padding:18px 6px}}
+
+.fb{max-width:760px;margin:0 auto;padding:30px 0 0;display:grid;grid-template-columns:1fr 1fr;gap:26px;text-align:left}
+@media(max-width:700px){.fb{grid-template-columns:1fr;gap:20px;padding-top:24px}}
+.fb-k{grid-column:1/-1;font-size:10.5px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;
+  color:var(--ink3);text-align:center;margin-bottom:-6px}
+.fb-i{display:flex;gap:12px;align-items:flex-start}
+.fb-i .tick{width:18px;height:18px;flex:none;margin-top:3px;border-radius:50%;background:rgba(229,101,67,.2);
+  display:grid;place-items:center}
+.fb-i .tick svg{width:10px;height:10px;stroke:var(--accent-lift);stroke-width:3;fill:none;
+  stroke-linecap:round;stroke-linejoin:round}
+.fb-i p{font-size:14px;line-height:1.55;color:var(--ink2);margin:0}
+.fb-i p b{color:var(--ink);font-weight:700}
+
+.sec{padding:96px 0}
+.sec-k{font-size:11.5px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--ink3);margin-bottom:18px}
+.sec h2{font-size:38px;line-height:1.14;font-weight:700;letter-spacing:-.035em;margin:0 0 20px;max-width:700px}
+@media(max-width:820px){.sec h2{font-size:29px}.sec{padding:64px 0}}
+.sec p.body{font-size:17px;line-height:1.66;color:var(--ink2);max-width:640px;margin:0 0 18px;letter-spacing:-.008em}
+.sec p.body b{color:var(--ink);font-weight:600}
+.rule{height:1px;background:var(--hair);margin:0}
+
+.notes{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:40px;max-width:820px}
+@media(max-width:760px){.notes{grid-template-columns:1fr}}
+.note{background:var(--surf);border:1px solid var(--hair);border-radius:16px;padding:24px 26px}
+.note h4{font-size:15px;font-weight:700;letter-spacing:-.015em;margin:0 0 8px}
+.note p{font-size:14px;line-height:1.6;color:var(--ink2);margin:0}
+
+.ideas{display:flex;flex-direction:column;gap:0;margin-top:14px;border-top:1px solid var(--hair)}
+.idea{display:grid;grid-template-columns:52px 1fr 190px;gap:26px;align-items:start;
+  padding:30px 4px;border-bottom:1px solid var(--hair);text-align:left;width:100%;transition:.18s}
+.idea:hover{background:rgba(255,255,255,.04)}
+@media(max-width:780px){.idea{grid-template-columns:38px 1fr;gap:16px}}
+.idea .no{font-size:13px;font-weight:700;color:var(--ink3);padding-top:4px;letter-spacing:.02em}
+.idea h3{font-size:21px;line-height:1.25;font-weight:700;letter-spacing:-.024em;margin:0 0 7px}
+@media(max-width:820px){.idea h3{font-size:18px}}
+.idea p{font-size:14.5px;line-height:1.6;color:var(--ink2);margin:0;max-width:540px}
+.idea .out{text-align:right;padding-top:3px}
+@media(max-width:780px){.idea .out{grid-column:2;text-align:left;padding-top:12px}}
+.idea .out b{display:block;font-size:19px;font-weight:700;letter-spacing:-.025em;color:var(--accent-lift);white-space:nowrap}
+.idea .out span{display:block;font-size:10.5px;color:var(--ink3);margin-top:3px;letter-spacing:.04em;text-transform:uppercase;font-weight:600}
+.idea .seeit{display:inline-flex;align-items:center;gap:5px;margin-top:11px;font-size:12.5px;
+  font-weight:600;color:var(--accent-lift)}
+.idea .seeit svg{width:12px;height:12px}
+
+.band{background:var(--surf);border:1px solid var(--hair);border-radius:28px;padding:40px 44px;margin-top:44px;
+  display:flex;align-items:center;gap:36px;flex-wrap:wrap}
+@media(max-width:700px){.band{padding:28px 24px;gap:22px}}
+.band .lab{font-size:11.5px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--ink3);margin-bottom:10px}
+.band .txt{flex:1;min-width:240px}
+.band .txt p{font-size:15.5px;line-height:1.6;color:var(--ink2);margin:0}
+.band .nums{display:flex;gap:34px}
+.band .nums div b{display:block;font-size:30px;font-weight:700;letter-spacing:-.035em;color:var(--accent-lift)}
+.band .nums div span{display:block;font-size:11px;color:var(--ink3);margin-top:2px;letter-spacing:.04em;
+  text-transform:uppercase;font-weight:600}
+
+.cta-row{display:flex;justify-content:center;align-items:center;gap:22px;flex-wrap:wrap;margin-top:52px}
+.bigbtn{display:inline-flex;align-items:center;gap:9px;background:var(--accent);color:var(--on-accent);
+  font-size:15px;font-weight:700;letter-spacing:-.01em;padding:15px 26px;border-radius:30px;transition:.16s}
+.bigbtn:hover{filter:brightness(1.08)}
+.bigbtn svg{width:15px;height:15px}
+
+.foot{border-top:1px solid var(--hair);padding:36px 0 70px;font-size:12.5px;line-height:1.6;color:var(--ink3)}
+
+/* ============ prototype stage ============ */
+.stage{display:grid;grid-template-columns:minmax(440px,1fr) minmax(400px,470px);gap:0;
+  align-items:start;min-height:calc(100vh - 58px)}
+@media(max-width:1080px){.stage{grid-template-columns:1fr}}
+.phonecol{padding:34px 24px 46px;display:flex;flex-direction:column;align-items:center;gap:18px}
+.panelcol{border-left:1px solid var(--hair);background:var(--panel);color:var(--panel-ink);
+  min-height:calc(100vh - 58px);position:sticky;top:58px;max-height:calc(100vh - 58px);overflow-y:auto}
+@media(max-width:1080px){.panelcol{position:static;max-height:none;border-left:none;border-top:1px solid var(--hair);min-height:0}}
+
+.phone{position:relative;width:390px;height:844px;flex:none;background:#000;border:11px solid #000;
+  border-radius:46px;box-shadow:0 0 0 1.5px #6A3640,0 34px 70px -22px rgba(0,0,0,.6)}
+.phone-in{position:absolute;inset:0;border-radius:36px;overflow:hidden;background:var(--hu-bg);color-scheme:only dark}
+.island{position:absolute;top:9px;left:50%;transform:translateX(-50%);width:104px;height:30px;background:#000;
+  border-radius:16px;z-index:60;pointer-events:none}
+.sbar{position:absolute;top:0;left:0;right:0;height:50px;z-index:55;pointer-events:none;display:flex;
+  align-items:center;justify-content:space-between;padding:14px 28px 0 34px;font:700 15px/1 'Figtree',sans-serif;color:#fff;transition:color .3s}
+.sbar.ink{color:#2A0A10}
+.sbar .glyphs{display:flex;gap:5px;align-items:center}
+.homebar{position:absolute;bottom:7px;left:50%;transform:translateX(-50%);width:134px;height:5px;
+  border-radius:3px;background:rgba(255,255,255,.9);z-index:56;pointer-events:none;transition:background .3s}
+.homebar.ink{background:#2A0A10}
+.screenwrap{position:absolute;inset:0;overflow:hidden;background:var(--hu-bg)}
+
+/* ============ phone screens — Hushed's system, all prefixed scr-/hu- ============ */
+.scr{position:absolute;inset:0;display:flex;flex-direction:column;background:var(--hu-bg);color:var(--hu-ink);
+  font-family:'Figtree',-apple-system,sans-serif;
+  transform:translateX(100%);transition:transform .36s cubic-bezier(.32,.72,0,1);z-index:10;will-change:transform}
+.scr.is-active{transform:translateX(0);z-index:20}
+.scr.is-past{transform:translateX(-24%)}
+.scr.nofx{transition:none}
+.scr-top{flex:none;padding:52px 20px 0;position:relative;z-index:2}
+.scr-body{flex:1;min-height:0;overflow-y:auto;overflow-x:hidden;padding:0 20px;scrollbar-width:none;position:relative;z-index:2}
+.scr-body::-webkit-scrollbar{display:none}
+.scr-body.dock{display:flex;flex-direction:column}
+.scr-foot{flex:none;padding:12px 20px 28px;position:relative;z-index:2}
+
+/* their header: chevron + Back left, Skip right */
+.hu-nav{display:flex;align-items:center;justify-content:space-between;height:40px}
+.hu-back{display:flex;align-items:center;gap:6px;font:500 17px/1 'Figtree',sans-serif;color:var(--hu-ink);margin-left:-6px}
+.hu-back svg{width:22px;height:22px}
+.hu-skip{font:500 17px/1 'Figtree',sans-serif;color:var(--hu-ink)}
+.hu-serif{font-family:'Fraunces',Georgia,serif;font-weight:600;letter-spacing:-.005em}
+.hu-h{font-family:'Fraunces',Georgia,serif;font-size:27px;line-height:1.14;font-weight:600;color:var(--hu-ink);margin:14px 0 0}
+.hu-sub{font-size:15px;line-height:1.4;color:var(--hu-txt);margin:8px 0 0}
+
+.hu-btn{display:block;width:100%;height:50px;border-radius:25px;background:var(--hu-coral);color:var(--hu-cta-ink);
+  font:700 16px/1 'Figtree',sans-serif;letter-spacing:-.005em;transition:filter .15s}
+.hu-btn:hover{filter:brightness(1.05)}
+.hu-btn[disabled]{opacity:.45;cursor:default}
+.hu-btn.ghost{background:transparent;border:1px solid var(--hu-line);color:var(--hu-ink);margin-top:12px}
+.hu-btn.dk{background:var(--hu-dark-btn);color:#fff}
+.hu-helper{font-size:11.5px;line-height:1.45;color:var(--hu-muted);margin:0 0 12px}
+.hu-legal{font-size:12px;color:var(--hu-txt);text-align:center;margin-top:10px}
+.hu-legal u{text-decoration:none;color:var(--hu-ink);font-weight:600}
+.hu-legal.muted{color:var(--hu-muted)}
+
+/* the badge + halo */
+.hu-badgewrap{position:relative;width:226px;height:226px;margin:0 auto}
+.hu-badgewrap svg{position:absolute;inset:0;width:100%;height:100%}
+.hu-glyphs{position:absolute;inset:0;pointer-events:none;z-index:1}
+.hu-glyphs svg{position:absolute;width:30px;height:30px;stroke:var(--hu-glyph);stroke-width:1.7;fill:none;stroke-linecap:round;stroke-linejoin:round}
+@keyframes pulse{0%,100%{transform:scale(1)}50%{transform:scale(1.045)}}
+.hu-pulse{animation:pulse 1.6s ease-in-out infinite}
+
+/* welcome carousel */
+.hu-wtrack{display:flex;transition:transform .45s cubic-bezier(.32,.72,0,1)}
+.hu-wslide{flex:0 0 100%;padding:0 10px;text-align:center}
+.hu-wh{font-family:'Fraunces',Georgia,serif;font-size:31px;line-height:1.1;font-weight:600;color:var(--hu-coral);margin:14px auto 0;max-width:290px}
+.hu-ws{font-size:17px;line-height:1.45;color:var(--hu-ink);margin:16px auto 0;max-width:300px}
+.hu-dots{display:inline-flex;gap:5px;background:rgba(255,255,255,.08);padding:5px 7px;border-radius:9px;margin:0 auto}
+.hu-dots i{width:6px;height:6px;border-radius:3px;background:rgba(255,255,255,.35);transition:.3s}
+.hu-dots i.on{width:16px;background:#fff}
+
+/* reason rows — their country-card shape */
+.hu-rows{display:flex;flex-direction:column;gap:9px;margin-top:16px}
+.hu-row{position:relative;display:flex;align-items:center;gap:13px;width:100%;text-align:left;background:var(--hu-card);
+  border:1.5px solid var(--hu-line);border-radius:var(--r-media);padding:11px 14px;transition:.16s}
+.hu-row .em{width:36px;height:36px;flex:none;border-radius:10px;background:var(--hu-chip);display:grid;place-items:center;font-size:19px}
+.hu-row .lb{flex:1;font:600 16px/1.25 'Figtree',sans-serif;color:var(--hu-ink)}
+.hu-row .cv{width:16px;height:16px;stroke:var(--hu-muted);fill:none;stroke-width:2.2;flex:none}
+.hu-row.on{border-color:var(--hu-coral);background:#55222B}
+.hu-row.on .cv{display:none}
+.hu-check{width:22px;height:22px;flex:none;border-radius:50%;background:var(--hu-coral);display:none;place-items:center}
+.hu-check svg{width:12px;height:12px;stroke:#fff;stroke-width:3.2;fill:none;stroke-linecap:round;stroke-linejoin:round}
+.hu-row.on .hu-check{display:grid}
+.hu-stepnote{font-size:12px;color:var(--hu-muted);text-align:center;margin:0 0 10px}
+
+/* loader */
+.hu-loadwrap{display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:100%;padding:8px 0 10px}
+.hu-loadwrap .hu-badgewrap{width:150px;height:150px}
+.hu-load-h{font-family:'Fraunces',Georgia,serif;font-size:25px;font-weight:600;color:var(--hu-coral);text-align:center;margin:18px 0 18px}
+.hu-lsteps{width:100%;display:flex;flex-direction:column;gap:12px;margin-bottom:22px}
+.hu-ls{display:flex;align-items:center;gap:11px;font-size:15px;font-weight:500;color:var(--hu-muted);transition:.35s}
+.hu-ls.on{color:var(--hu-ink)}
+.hu-ls .d{width:22px;height:22px;flex:none;border-radius:50%;border:2px solid rgba(255,255,255,.25);display:grid;place-items:center;transition:.35s}
+.hu-ls.on .d{background:var(--hu-coral);border-color:var(--hu-coral)}
+.hu-ls .d svg{width:12px;height:12px;stroke:#fff;stroke-width:3.2;fill:none;opacity:0;stroke-linecap:round;stroke-linejoin:round}
+.hu-ls.on .d svg{opacity:1}
+.hu-quote{width:100%;background:var(--hu-card);border:1px solid var(--hu-line);border-radius:var(--r-media);padding:15px 16px;min-height:112px}
+.hu-quote p{font-size:14px;line-height:1.5;color:var(--hu-ink)}
+.hu-quote b{display:block;margin-top:8px;font-size:12px;font-weight:700;letter-spacing:.04em;color:var(--hu-price);text-transform:uppercase}
+.hu-qd{display:flex;gap:5px;justify-content:center;margin-top:12px}
+.hu-qd i{width:6px;height:6px;border-radius:3px;background:rgba(255,255,255,.3);transition:.3s}
+.hu-qd i.on{background:#fff;width:16px}
+
+/* paywall — their composition */
+.hu-chips{display:flex;gap:6px;margin-top:4px}
+.hu-chips span{height:22px;padding:0 9px;border-radius:11px;background:var(--hu-chip);display:flex;align-items:center;
+  font:500 11.5px/1 'Figtree',sans-serif;letter-spacing:.04em;color:var(--hu-ink)}
+.hu-num{font-family:'Fraunces',Georgia,serif;font-size:31px;line-height:1.1;font-weight:500;color:var(--hu-coral);margin-top:6px;letter-spacing:-.01em;white-space:nowrap}
+.hu-country{font-size:16px;font-weight:500;color:var(--hu-ink);margin-top:3px}
+.hu-proof{display:flex;gap:6px;flex-wrap:nowrap;margin-top:9px}
+.hu-proof>span{height:26px;padding:0 10px;border-radius:13px;border:1px solid var(--hu-line);display:flex;align-items:center;gap:5px;
+  font:500 12px/1 'Figtree',sans-serif;color:var(--hu-txt);white-space:nowrap}
+.hu-proof b{color:var(--hu-ink);font-weight:700}
+.hu-proof .st{color:#F5B54A}
+.hu-ready{font-size:16px;font-weight:600;color:var(--hu-ink);margin-top:9px}
+.hu-feat{display:flex;flex-direction:column;gap:5px;margin-top:7px}
+.hu-f{display:flex;align-items:center;gap:9px;font-size:15px;color:var(--hu-ink)}
+.hu-f svg{width:15px;height:15px;stroke:var(--hu-ink);fill:none;stroke-width:1.8;flex:none;stroke-linecap:round;stroke-linejoin:round}
+.hu-f.me{color:var(--hu-price);font-weight:600}
+.hu-f.me svg{stroke:var(--hu-price)}
+.hu-plans{display:flex;flex-direction:column;gap:9px;margin-top:10px}
+.hu-plan{position:relative;display:block;width:100%;text-align:left;background:var(--hu-card);border:1.5px solid var(--hu-line);
+  border-radius:var(--r-media);padding:9px 15px 10px;transition:.16s}
+.hu-plan.on{border-color:var(--hu-coral)}
+.hu-plan .t{display:block;font-size:17px;font-weight:500;color:var(--hu-ink)}
+.hu-plan .p{display:block;font-size:13.5px;color:var(--hu-price);margin-top:2px}
+.hu-plan .p s,.hu-plan .p em{font-style:normal;text-decoration:none;color:var(--hu-muted);margin-left:6px}
+.hu-plan .e{display:block;font-size:13px;color:var(--hu-muted);margin-top:2px}
+.hu-tbar{display:flex;align-items:center;justify-content:center;gap:4px;height:20px;border-radius:10px;background:var(--hu-chip);
+  font-size:12px;color:var(--hu-ink);margin-top:6px}
+.hu-plan .hu-check{position:absolute;top:9px;right:10px;width:19px;height:19px}
+.hu-plan.on .hu-check{display:grid}
+.hu-other{display:block;width:100%;text-align:center;font-size:14px;color:var(--hu-txt);margin:11px 0 2px}
+.scr--pay .scr-foot{background:var(--hu-foot);border-top:1px solid var(--hu-line);padding-top:10px}
+.scr--pay .scr-top{padding-top:46px}
+.scr--pay .hu-nav{height:36px}
+.scr--pay .hu-helper{margin-bottom:9px}
+.scr--pay .hu-legal{margin-top:8px}
+
+/* the white sheet — their exit-sheet language */
+.scr.hu-ov{background:transparent;transform:none !important;opacity:0;pointer-events:none;transition:opacity .3s;z-index:40;display:block}
+.scr.hu-ov.is-active{opacity:1;pointer-events:auto}
+.hu-dim{position:absolute;inset:0;background:rgba(20,4,8,.55)}
+.hu-sheet{position:absolute;left:0;right:0;bottom:0;max-height:88%;background:var(--hu-sheet);color:var(--hu-sheet-ink);border-radius:30px 30px 0 0;
+  display:flex;flex-direction:column;transform:translateY(100%);transition:transform .38s cubic-bezier(.32,.72,0,1)}
+.hu-ov.is-active .hu-sheet{transform:none}
+.hu-sheet .scr-body{padding:0 22px}
+.hu-sheet .scr-foot{padding:10px 22px 26px}
+.hu-handle{width:40px;height:5px;border-radius:3px;background:#F2CFC5;margin:12px auto 0}
+.hu-sh-h{font-family:'Fraunces',Georgia,serif;font-size:23px;line-height:1.15;font-weight:600;color:var(--hu-sheet-ink);margin:16px 0 0}
+.hu-sh-s{font-size:15px;line-height:1.4;color:var(--hu-sheet-txt);margin:10px 0 0}
+.hu-cmp{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-top:14px}
+.hu-oc{position:relative;text-align:left;background:var(--hu-sheet-card);border:1.5px solid var(--hu-sheet-line);border-radius:var(--r-media);padding:11px 11px 12px}
+.hu-oc.on{border-color:var(--hu-coral);background:#FFF}
+.hu-oc .k{display:block;font-size:10.5px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#9C7076}
+.hu-oc .t{display:block;font-size:16px;font-weight:600;color:var(--hu-sheet-ink);margin-top:3px}
+.hu-oc .p{display:block;font-size:14px;font-weight:600;color:var(--hu-coral);margin-top:2px}
+.hu-oc ul{list-style:none;margin-top:8px;display:flex;flex-direction:column;gap:5px}
+.hu-oc li{display:flex;gap:6px;font-size:12.5px;line-height:1.3;color:var(--hu-sheet-txt)}
+.hu-oc li i{width:14px;height:14px;flex:none;border-radius:50%;margin-top:1px;display:grid;place-items:center;font-style:normal;font-size:9px;font-weight:800}
+.hu-oc li i.y{background:#FCE2DA;color:var(--hu-coral)}
+.hu-oc li i.n{background:#F1E6E4;color:#B49A9E}
+.hu-oc .hu-check{position:absolute;top:9px;right:9px;width:19px;height:19px}
+.hu-oc.on .hu-check{display:grid}
+.hu-miss{display:flex;flex-direction:column;gap:6px;margin-top:12px}
+.hu-miss div{display:flex;align-items:center;gap:9px;font-size:13.5px;color:var(--hu-sheet-txt)}
+.hu-miss i{width:18px;height:18px;flex:none;border-radius:50%;background:#F7D5CB;display:grid;place-items:center}
+.hu-miss i::before{content:'';width:8px;height:8px;border-radius:50%;background:var(--hu-coral)}
+.hu-sheet .hu-btn.dk{margin-top:10px}
+.hu-sheet .hu-link{display:block;width:100%;text-align:center;font:600 14px/1 'Figtree',sans-serif;color:var(--hu-sheet-ink);margin-top:14px}
+.hu-sheet .hu-helper{color:#9C7076;text-align:center;margin:0 0 9px}
+
+/* account — their sign-up sheet, after the purchase */
+.hu-acct{display:flex;flex-direction:column;gap:11px;margin-top:20px}
+.hu-sso{display:flex;align-items:center;justify-content:center;gap:10px;height:48px;border-radius:24px;background:#fff;color:#2A0A10;font:700 15px/1 'Figtree',sans-serif;position:relative}
+.hu-sso svg{position:absolute;left:18px;width:18px;height:18px}
+.hu-sso.em{background:var(--hu-coral);color:var(--hu-cta-ink)}
+.hu-or{text-align:center;font-size:13px;color:var(--hu-muted)}
+.hu-consent{display:flex;gap:11px;align-items:flex-start;margin-top:18px;background:rgba(255,255,255,.05);border:1px solid var(--hu-line);border-radius:14px;padding:12px 13px;text-align:left;width:100%}
+.hu-box{width:18px;height:18px;flex:none;border-radius:4px;border:1.6px solid var(--hu-coral);display:grid;place-items:center;margin-top:1px}
+.hu-box svg{width:11px;height:11px;stroke:#fff;stroke-width:3.2;fill:none;opacity:0;stroke-linecap:round;stroke-linejoin:round}
+.hu-consent.on .hu-box{background:var(--hu-coral)}
+.hu-consent.on .hu-box svg{opacity:1}
+.hu-consent span{font-size:11.5px;line-height:1.45;color:var(--hu-txt)}
+.hu-paid{display:flex;align-items:center;gap:10px;background:var(--hu-card);border:1px solid var(--hu-line);border-radius:var(--r-media);padding:12px 14px;margin-top:16px}
+.hu-paid .hu-check{display:grid;width:24px;height:24px}
+.hu-paid div{font-size:13px;color:var(--hu-txt);line-height:1.35}
+.hu-paid b{display:block;font-family:'Fraunces',Georgia,serif;font-weight:500;font-size:19px;color:var(--hu-coral)}
+
+/* tracking — their prompt card over a dimmed home */
+.scr--trk{background:var(--hu-bg)}
+.hu-trkcard{margin:auto 6px;background:var(--hu-card);border:1px solid var(--hu-line);border-radius:22px;padding:20px 18px 16px}
+.hu-trkcard .ic{width:46px;height:46px;border-radius:12px;background:linear-gradient(160deg,#F7A35C,#E56543);display:grid;place-items:center}
+.hu-trkcard .ic svg{width:26px;height:26px;stroke:#fff;stroke-width:2;fill:none;stroke-linecap:round;stroke-linejoin:round}
+.hu-trkcard h4{font-size:16px;line-height:1.35;font-weight:600;color:var(--hu-ink);margin-top:14px}
+.hu-trkcard p{font-size:13.5px;line-height:1.45;color:var(--hu-txt);margin-top:9px}
+.hu-trkcard .hu-btn{height:44px;font-size:15px;background:rgba(255,255,255,.08);color:var(--hu-ink);margin-top:12px}
+.hu-trkcard .hu-btn+.hu-btn{margin-top:8px}
+.hu-when{font-size:12px;color:var(--hu-muted);text-align:center;margin-top:14px}
+
+/* home */
+.scr--home{background:var(--hu-home)}
+.hu-hhead{display:flex;align-items:center;justify-content:space-between;height:40px}
+.hu-hhead .w{width:92px;height:18px;color:#fff;opacity:.92}
+.hu-hhead svg.i{width:22px;height:22px;stroke:#fff;fill:none;stroke-width:1.8}
+.hu-banner{display:flex;gap:10px;align-items:center;background:var(--hu-home-card);border-radius:14px;padding:12px 14px;margin-top:14px}
+.hu-banner p{flex:1;font-size:13.5px;font-weight:600;line-height:1.3;color:#fff}
+.hu-banner span{display:inline-block;margin-top:7px;background:var(--hu-coral);color:var(--hu-cta-ink);font-size:11px;font-weight:700;padding:5px 10px;border-radius:11px}
+.hu-numcard{background:var(--hu-home-card);border-radius:14px;padding:14px;margin-top:14px;display:flex;align-items:center;gap:12px}
+.hu-numcard .av{width:40px;height:40px;border-radius:50%;background:var(--hu-coral);display:grid;place-items:center;font:700 17px/1 'Figtree';color:var(--hu-cta-ink)}
+.hu-numcard b{display:block;font-family:'Fraunces',Georgia,serif;font-weight:500;font-size:19px;color:#fff}
+.hu-numcard span{font-size:12.5px;color:rgba(255,255,255,.6)}
+.hu-hbtns{display:flex;gap:10px}
+.hu-hbtns .hu-btn{height:44px;font-size:15px}
+.hu-hbtns .hu-btn.gr{background:#5A5A5A;color:#fff;width:42%;flex:none}
+.hu-bal{text-align:center;font-size:12.5px;letter-spacing:.08em;color:rgba(255,255,255,.75);margin-top:12px}
+.hu-bal b{color:#fff;margin-left:6px}
+
+/* light mode — an approximation built from their own white sheets */
+.phone-in.light{--hu-bg:#FBF4F2;--hu-card:#FFFFFF;--hu-line:rgba(59,10,20,.10);--hu-chip:#F2E1DC;--hu-ink:#3B0A14;
+  --hu-txt:rgba(59,10,20,.74);--hu-muted:rgba(59,10,20,.48);--hu-foot:#FFFFFF;--hu-halo:#F6DDD5;--hu-halo2:#F9E8E3;
+  --hu-glyph:rgba(59,10,20,.08);--hu-price:#D25A3A;--hu-home:#F4EFEE;--hu-home-card:#FFFFFF;background:var(--hu-bg)}
+.phone-in.light .screenwrap{background:var(--hu-bg)}
+.phone-in.light .hu-row.on{background:#FFF6F3}
+.phone-in.light .hu-dots{background:rgba(59,10,20,.06)}
+.phone-in.light .hu-dots i{background:rgba(59,10,20,.25)} .phone-in.light .hu-dots i.on{background:var(--hu-coral)}
+.phone-in.light .hu-qd i{background:rgba(59,10,20,.2)} .phone-in.light .hu-qd i.on{background:var(--hu-coral)}
+.phone-in.light .hu-ls .d{border-color:rgba(59,10,20,.2)}
+.phone-in.light .hu-sso{background:#fff;border:1px solid rgba(59,10,20,.14)}
+.phone-in.light .hu-sso.em{border:none}
+.phone-in.light .hu-consent{background:#fff}
+.phone-in.light .hu-trkcard .hu-btn{background:rgba(59,10,20,.06)}
+.phone-in.light .hu-hhead .w{color:#3B0A14}
+.phone-in.light .hu-hhead svg.i{stroke:#3B0A14}
+.phone-in.light .hu-banner p,.phone-in.light .hu-numcard b{color:#3B0A14}
+.phone-in.light .hu-numcard span,.phone-in.light .hu-bal{color:rgba(59,10,20,.6)} .phone-in.light .hu-bal b{color:#3B0A14}
+.phone-in.light .hu-hbtns .hu-btn.gr{background:#E9E1E0;color:#3B0A14}
+.phone-in.light .hu-dim{background:rgba(59,10,20,.35)}
+
+/* prototype toolbar, walkthrough, QR */
+.tools{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;max-width:520px}
+.seg{display:inline-flex;align-items:center;background:var(--surf);border:1px solid var(--hair2);border-radius:20px;padding:3px;gap:2px}
+.seg button{padding:6px 11px;border-radius:16px;font:600 12px/1 'Figtree',sans-serif;color:var(--ink2);transition:.14s}
+.seg button.on{background:var(--ink);color:#3A121A}
+.demo-btn{display:inline-flex;align-items:center;gap:7px;padding:9px 14px;border-radius:20px;background:var(--accent);color:var(--on-accent);
+  font:700 12px/1 'Figtree',sans-serif}
+.demo-cap{width:390px;max-width:calc(100vw - 24px);background:var(--surf);border:1px solid var(--hair2);border-radius:16px;padding:14px 14px 12px;
+  display:flex;align-items:center;gap:12px;position:relative;overflow:hidden;box-shadow:0 4px 18px rgba(0,0,0,.25)}
+.demo-cap .bar{position:absolute;left:0;top:0;right:0;height:3px;background:rgba(255,255,255,.08)}
+.demo-cap .bar i{display:block;height:100%;width:0;background:var(--accent);transition:width .25s linear}
+.demo-cap p{flex:1;font-size:13.5px;line-height:1.45;color:var(--ink);margin:0;font-weight:500}
+.demo-cap button{font:700 12px/1 'Figtree',sans-serif;color:var(--ink2);padding:7px 10px;border-radius:12px;border:1px solid var(--hair2);flex:none}
+.finger{position:absolute;z-index:90;width:46px;height:46px;margin:-23px 0 0 -23px;border-radius:50%;background:rgba(255,255,255,.28);
+  border:2px solid rgba(255,255,255,.95);box-shadow:0 4px 14px rgba(0,0,0,.35);pointer-events:none;opacity:0;left:50%;top:60%;
+  transition:left .32s cubic-bezier(.4,0,.2,1),top .32s cubic-bezier(.4,0,.2,1),opacity .2s,transform .15s}
+.finger.show{opacity:1}
+.finger.press{transform:scale(.78);background:rgba(255,255,255,.45)}
+.qr{display:flex;align-items:center;gap:12px;background:#fff;border:1px solid var(--hair);border-radius:16px;padding:10px 16px 10px 10px;text-align:left}
+.qr img{width:123px;height:123px;display:block;image-rendering:pixelated;border-radius:6px}
+.qr span{font-size:12.5px;line-height:1.45;color:#5A3A40}
+.qr b{display:block;color:#2A0A10;font-size:13.5px}
+@media(max-width:1080px){.qr{display:none}}
+
+#view-proto .tools{order:0} #view-proto .demo-cap{order:1} #view-proto .phone{order:2} #view-proto .chips{order:3}
+#view-proto .chiphint{order:4} #view-proto .qr{order:5}
+/* on a phone: the prototype is the screen */
+@media(max-width:500px){
+  #view-proto .phonecol{padding:0 0 28px;gap:14px}
+  #view-proto .phone{width:100vw;height:calc(100svh - 58px);min-height:640px;border:0;border-radius:0;box-shadow:none;order:1}
+  #view-proto .phone-in{border-radius:0}
+  #view-proto .island,#view-proto .sbar,#view-proto .homebar{display:none}
+  #view-proto .scr-top{padding-top:14px}
+  #view-proto .scr-foot{padding-bottom:18px}
+  #view-proto .hu-sheet .scr-foot{padding-bottom:18px}
+  #view-proto .tools{order:3;padding:0 12px}
+  #view-proto .demo-cap{position:fixed;left:12px;right:12px;bottom:12px;width:auto;max-width:none;z-index:95}
+  #view-proto .chips{order:4;padding:0 12px}
+  #view-proto .chiphint{order:5}
+}
+
+.herobtns{display:flex;justify-content:center;margin-top:30px}
+.ghostbtn{display:inline-flex;align-items:center;gap:10px;background:var(--surf);border:1px solid var(--hair2);color:var(--ink);font-size:14px;
+  font-weight:700;padding:9px 20px 9px 9px;border-radius:30px;transition:.16s}
+.ghostbtn:hover{background:#582631}
+.ghostbtn .pl{width:30px;height:30px;border-radius:50%;background:var(--accent);display:grid;place-items:center}
+.ghostbtn .pl svg{width:12px;height:12px;fill:var(--on-accent);margin-left:2px}
+
+/* chips */
+.chips{display:flex;flex-wrap:wrap;gap:6px;justify-content:center;max-width:470px;margin:0 auto}
+.chip{padding:7px 13px;border-radius:20px;border:1px solid var(--hair2);background:var(--surf);
+  font:600 12px/1 'Figtree',sans-serif;color:var(--ink2);transition:.14s}
+.chip:hover{color:var(--ink);border-color:rgba(255,236,232,.3)}
+.chip.offer{border-style:dashed;border-color:var(--accent);color:var(--accent-lift)}
+.chip.on{background:var(--accent);border-color:var(--accent);color:var(--on-accent);border-style:solid}
+.chiphint{text-align:center;font-size:11px;color:var(--ink3);margin:0;max-width:430px}
+
+/* ============ the short panel ============ */
+.pn{padding:30px 30px 60px}
+.pn-n{font-size:10.5px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--accent-ink)}
+.pn-n.ctx{color:var(--panel-muted)}
+.pn-t{font-size:23px;line-height:1.18;font-weight:700;letter-spacing:-.028em;margin:8px 0 0;color:var(--panel-ink)}
+.pn-hyp{font-size:15px;line-height:1.62;color:#3A2A2D;margin:16px 0 0}
+.pn-hyp b{font-weight:700;color:var(--panel-ink)}
+.pn-out{margin-top:22px;border-top:1px solid var(--panel-line);padding-top:18px}
+.pn-out .lab{font-size:10px;font-weight:700;letter-spacing:.13em;text-transform:uppercase;color:var(--panel-muted)}
+.pn-out .v{font-size:31px;font-weight:700;letter-spacing:-.035em;color:var(--accent-ink);margin-top:7px;line-height:1}
+.pn-kept{margin-top:22px;font-size:12.5px;line-height:1.55;color:var(--panel-muted)}
+.pn-kept b{color:#3A2A2D;font-weight:700}
+.pn-foot{font-size:11.5px;line-height:1.55;color:var(--panel-muted);border-top:1px solid var(--panel-line);
+  padding-top:14px;margin-top:26px}
+.pn-sep{height:1px;background:var(--panel-line);margin:26px 0}
+.hidden{display:none !important}
+</style>
+</head>
+<body>
+
+<div class="nav">
+  <div class="nav-in">
+    <div class="nav-brand">
+      <span class="mk"><svg viewBox="0 0 120 120" class="hbadge" aria-label="Hushed"></svg></span>
+      <b>Growth Audit</b><span>· Hushed</span>
+    </div>
+    <div class="nav-links">
+      <button class="on" data-view="over">Overview</button>
+      <button data-view="proto">Prototype</button>
+    </div>
+  </div>
+</div>
+
+<!-- ======================= OVERVIEW ======================= -->
+<div class="view on" id="view-over">
+
+<div class="hero">
+  <div class="wrap">
+    <svg class="hero-badge hbadge" viewBox="0 0 120 120" aria-hidden="true"></svg>
+    <!-- month + year = the day you build --><div class="eyebrow">Growth Audit · October 2026</div>
+    <h1>Hushed</h1>
+    <p class="lede">Five ideas to unlock more revenue from the traffic you already have.</p>
+    <div class="meta">Prepared by <b>Adapty</b> · based on your live iOS flow and your App Store listing</div>
+    <div class="herobtns"><button class="ghostbtn" data-demo><span class="pl"><svg viewBox="0 0 24 24"><path d="M7 4.5v15l12-7.5z"/></svg></span>Watch the 30-second walkthrough</button></div>
+    <div class="stats">
+      <div class="stat"><b>30,000+</b><span>apps run subscriptions<br>on Adapty</span></div>
+      <div class="stat"><b>5</b><span>ideas, each rebuilt<br>as a working screen</span></div>
+      <div class="stat"><b>0</b><span>design changes<br>to your art direction</span></div>
+    </div>
+
+    <div class="fb">
+      <div class="fb-k">Built in Adapty Flow Builder</div>
+      <div class="fb-i">
+        <span class="tick"><svg viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg></span>
+        <p><b>Millions of dollars</b> in subscription revenue pass through Flow Builder every month.</p>
+      </div>
+      <div class="fb-i">
+        <span class="tick"><svg viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg></span>
+        <p><b>Nearly 500 apps</b> actively build their paywalls and onboarding in it — plenty of them past $100K MRR.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="sec">
+  <div class="wrap">
+    <div class="sec-k">What this is</div>
+    <h2>We opened Hushed the way a new user does, then rebuilt the parts we think are leaving money on the table.</h2>
+    <p class="body">Adapty powers subscriptions for <b>30,000+ apps</b>, so we see what actually moves conversion and revenue across the market, not inside one app. We pointed that at Hushed: installed it, signed up, picked a number, read your App Store listing and hushed.com, and looked for gaps between what you already have and what you show people before they pay.</p>
+    <p class="body">What follows is five ideas, not fifteen. Each one is a hypothesis you can A/B test, and each one is built into a clickable prototype so you can see it rather than imagine it. <b>The prototype uses your design, not ours.</b></p>
+
+    <div class="notes">
+      <div class="note">
+        <h4>We did not redesign your app</h4>
+        <p>Every screen in the prototype is yours: your wine and coral, the H badge, the serif number, your plan cards with the 3-day trial bar, your white “don’t leave it behind” sheet. Only the order changed, plus a few things you already own but do not show at the right moment.</p>
+      </div>
+      <div class="note">
+        <h4>You may have tested some of this</h4>
+        <p>We are working from the outside, so we cannot see your experiment history. If one of these is something you have already run, tell us and we will go deeper on the rest rather than repeat it.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="rule"></div>
+
+<div class="sec">
+  <div class="wrap">
+    <div class="sec-k">The five ideas</div>
+    <h2>Ranked by what we would test first.</h2>
+    <p class="body">Each one links straight to the screen in the prototype.</p>
+
+    <div class="ideas">
+      <button class="idea" data-jump="welcome">
+        <span class="no">01</span>
+        <span>
+          <h3>Show the number before the sign-up</h3>
+          <p>Today Sign Up is the first thing a new install does: Google, Apple or email, then a terms sheet, then Apple’s own sheet, then a spinner. That is four steps before anyone sees a single number. Let them pick it first, and save it to an account straight after they buy.</p>
+          <span class="seeit">See the screen <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+        </span>
+        <span class="out"><b>CR +8% · ARPU +17%</b><span>to purchase</span></span>
+      </button>
+
+      <button class="idea" data-jump="offer">
+        <span class="no">02</span>
+        <span>
+          <h3>Give Skip a real second option</h3>
+          <p>Skip opens “Your new phone number is waiting!”, which offers Back or Skip anyway. Your 30 Day prepaid plan at 8,99 € is the honest middle: the same number, no subscription, no trial to remember to cancel. Today it sits under View other plans, below four subscriptions.</p>
+          <span class="seeit">See the screen <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+        </span>
+        <span class="out"><b>ARPU +10–15%</b><span>second chance</span></span>
+      </button>
+
+      <button class="idea" data-jump="reason">
+        <span class="no">03</span>
+        <span>
+          <h3>Put their reason in the paywall headline</h3>
+          <p>Your App Store listing names the reasons people get a second number, from online dating to selling things online. The flow never asks, so the paywall says “Ready to get started?” to everyone. One question changes that.</p>
+          <span class="seeit">See the screen <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+        </span>
+        <span class="out"><b>CR +15–20%</b><span>to purchase</span></span>
+      </button>
+
+      <button class="idea" data-jump="paywall">
+        <span class="no">04</span>
+        <span>
+          <h3>Put 4.6 stars and 25 million downloads on the paywall</h3>
+          <p>Your 4.6 from 23K ratings, 25 million downloads and the TechCrunch and Lifehacker lines on hushed.com appear nowhere between install and price. The paywall is where someone decides whether to trust you with a phone number.</p>
+          <span class="seeit">See the screen <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+        </span>
+        <span class="out"><b>CR +10–15%</b><span>to purchase</span></span>
+      </button>
+
+      <button class="idea" data-jump="tracking">
+        <span class="no">05</span>
+        <span>
+          <h3>Ask about tracking after the purchase</h3>
+          <p>Apple’s tracking prompt fires straight after sign-up, on top of the country picker, before the paywall. Asked after the purchase, it stops competing with the decision. Your own explanation of why you ask stays exactly as it is.</p>
+          <span class="seeit">See the screen <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+        </span>
+        <span class="out"><b>CR +10–15%</b><span>to purchase</span></span>
+      </button>
+    </div>
+
+    <div class="band">
+      <div class="txt">
+        <div class="lab">Potential outcome</div>
+        <p>Run together, these five clear the road to the number, tell people why they are buying and who already trusts you, and catch the ones who say no. Potential result: revenue up to +30%.</p>
+      </div>
+      <div class="nums">
+        <div><b>+25%</b><span>CR to purchase</span></div>
+        <div><b>+30%</b><span>ARPU</span></div>
+      </div>
+    </div>
+
+    <div class="cta-row">
+      <div class="qr"><img src="img/qr.svg?v=1" alt="QR code for the prototype"><span><b>Or open it on your phone</b>Scan to try the flow in your hand.</span></div>
+      <button class="bigbtn" data-view="proto">Open the prototype
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+      </button>
+    </div>
+  </div>
+</div>
+
+<div class="foot">
+  <div class="wrap">
+    Impact ranges are Adapty's expected effect from teardowns and A/B tests across subscription apps — not measured lift for Hushed. Every price, rating, quote and feature line here and in the prototype comes from Hushed’s own App Store listing, hushed.com and in-app screens. The phone number shown is a reserved demo number.
+  </div>
+</div>
+</div><!-- /view-over -->
+
+<!-- ======================= PROTOTYPE ======================= -->
+<div class="view" id="view-proto">
+<div class="stage">
+  <div class="phonecol">
+    <div class="tools" id="tools">
+      <div class="seg" id="segLang"><button data-lang="en" class="on">EN</button><button data-lang="fr">FR</button><button data-lang="es">ES</button></div>
+      <div class="seg" id="segTheme"><button data-theme="light">Light</button><button data-theme="dark" class="on">Dark</button></div>
+      <button class="demo-btn" id="demoBtn"><svg viewBox="0 0 24 24" width="11" height="11" fill="currentColor"><path d="M7 4.5v15l12-7.5z"/></svg>30-sec walkthrough</button>
+    </div>
+    <div class="phone">
+      <div class="phone-in" id="phoneIn">
+        <div class="island"></div>
+        <div class="sbar" id="sbar">
+          <span>9:41</span>
+          <span class="glyphs">
+            <svg width="17" height="11" viewBox="0 0 17 11" fill="currentColor"><rect x="0" y="7.5" width="3" height="3.5" rx="1"/><rect x="4.5" y="5.5" width="3" height="5.5" rx="1"/><rect x="9" y="3" width="3" height="8" rx="1"/><rect x="13.5" y="0" width="3" height="11" rx="1"/></svg>
+            <svg width="16" height="11" viewBox="0 0 16 11" fill="currentColor"><path d="M8 10.5 5.6 7.9a3.4 3.4 0 0 1 4.8 0L8 10.5Zm0-5.6a6.4 6.4 0 0 0-4.5 1.9L1.7 4.9a9 9 0 0 1 12.6 0l-1.8 1.9A6.4 6.4 0 0 0 8 4.9Z"/></svg>
+            <svg width="25" height="12" viewBox="0 0 25 12" fill="none"><rect x=".6" y=".6" width="20" height="10.8" rx="3" stroke="currentColor" stroke-opacity=".5"/><rect x="2.2" y="2.2" width="16.5" height="7.6" rx="1.8" fill="currentColor"/><path d="M22.3 4.1v3.8a2 2 0 0 0 0-3.8Z" fill="currentColor" fill-opacity=".5"/></svg>
+          </span>
+        </div>
+        <div class="homebar" id="homebar"></div>
+        <div class="finger" id="finger"></div>
+        <div class="screenwrap">
+
+<!-- WELCOME -->
+<section class="scr" data-id="welcome">
+  <div class="scr-top" style="padding-top:58px">
+    <div class="hu-badgewrap" id="welBadge"></div>
+  </div>
+  <div class="scr-body dock" style="overflow:hidden;padding:0">
+    <div style="overflow:hidden"><div class="hu-wtrack" id="wTrack"></div></div>
+    <div style="margin-top:auto;padding:18px 0 4px;text-align:center"><span class="hu-dots" id="wDots"></span></div>
+  </div>
+  <div class="scr-foot">
+    <button class="hu-btn" id="welCta" data-go="reason" data-t="wel.cta"></button>
+    <button class="hu-btn ghost" data-t="wel.login"></button>
+    <p class="hu-legal muted" data-th="wel.legal"></p>
+  </div>
+</section>
+
+<!-- REASON -->
+<section class="scr" data-id="reason">
+  <div class="scr-top">
+    <div class="hu-nav"><button class="hu-back" data-back><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg><span data-t="back"></span></button></div>
+    <h2 class="hu-h" data-t="rs.h"></h2>
+    <p class="hu-sub" data-t="rs.s"></p>
+  </div>
+  <div class="scr-body"><div class="hu-rows" id="reasonList"></div></div>
+  <div class="scr-foot">
+    <p class="hu-stepnote" data-t="rs.next"></p>
+    <button class="hu-btn" id="reasonBtn" data-go="loader" data-t="cont"></button>
+  </div>
+</section>
+
+<!-- LOADER -->
+<section class="scr" data-id="loader">
+  <div class="scr-top" style="padding-top:60px"></div>
+  <div class="scr-body">
+    <div class="hu-loadwrap">
+      <div class="hu-badgewrap hu-pulse" id="loadBadge"></div>
+      <h2 class="hu-load-h" data-t="ld.h"></h2>
+      <div class="hu-lsteps" id="loadSteps">
+        <div class="hu-ls"><span class="d"><svg viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg></span><span class="t">—</span></div>
+        <div class="hu-ls"><span class="d"><svg viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg></span><span class="t">—</span></div>
+        <div class="hu-ls"><span class="d"><svg viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg></span><span class="t">—</span></div>
+      </div>
+      <div class="hu-quote"><p id="qText">—</p><b id="qWho">—</b></div>
+      <div class="hu-qd" id="qDots"><i class="on"></i><i></i><i></i></div>
+    </div>
+  </div>
+  <div class="scr-foot" style="padding-bottom:20px"></div>
+</section>
+
+<!-- PAYWALL -->
+<section class="scr scr--pay" data-id="paywall">
+  <div class="scr-top">
+    <div class="hu-nav">
+      <button class="hu-back" data-back><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg><span data-t="back"></span></button>
+      <button class="hu-skip" id="paySkip" data-t="skip"></button>
+    </div>
+  </div>
+  <div class="scr-body">
+    <div class="hu-chips"><span>VOICE</span><span>SMS</span><span>MMS</span></div>
+    <div class="hu-num numtxt"></div>
+    <div class="hu-country">🇺🇸 <span data-t="us"></span></div>
+    <div class="hu-proof"><span><span class="st">★</span><span data-th="pw.rate"></span></span><span data-th="pw.dl"></span></div>
+    <p class="hu-ready" id="payH"></p>
+    <div class="hu-feat" id="featList"></div>
+    <div class="hu-plans" id="planList">
+      <button class="hu-plan" data-v="month">
+        <span class="t" data-t="pw.m"></span><span class="p" data-t="pw.mp"></span><span class="e" data-t="pw.enjoy"></span>
+        <span class="hu-tbar">🎁 <span data-t="pw.trial"></span></span>
+        <span class="hu-check"><svg viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg></span>
+      </button>
+      <button class="hu-plan" data-v="year">
+        <span class="t" data-t="pw.y"></span><span class="p"><span data-t="pw.yp"></span><em>6,67 €</em></span><span class="e" data-t="pw.enjoy"></span>
+        <span class="hu-tbar">🎁 <span data-t="pw.trial"></span></span>
+        <span class="hu-check"><svg viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg></span>
+      </button>
+    </div>
+    <button class="hu-other" data-t="pw.other"></button>
+  </div>
+  <div class="scr-foot">
+    <p class="hu-helper" data-t="pw.bill"></p>
+    <button class="hu-btn" id="payCta" data-t="pw.cta"></button>
+    <p class="hu-legal" data-t="lg"></p>
+  </div>
+</section>
+
+<!-- OFFER ON SKIP — their white sheet -->
+<section class="scr hu-ov" data-id="offer" data-overlay="1">
+  <div class="hu-dim" data-back></div>
+  <div class="hu-sheet">
+    <div class="hu-handle"></div>
+    <div class="scr-body">
+      <h3 class="hu-sh-h" data-t="of.h"></h3>
+      <p class="hu-sh-s" id="ofSub"></p>
+      <div class="hu-cmp" id="offerCmp">
+        <button class="hu-oc" data-v="sub">
+          <span class="k" data-t="of.k1"></span><span class="t" data-t="of.t1"></span><span class="p" data-t="pw.mp"></span>
+          <ul><li><i class="y">✓</i><span data-t="of.a1"></span></li><li><i class="y">✓</i><span data-t="pw.trial"></span></li><li><i class="n">↻</i><span data-t="of.a3"></span></li></ul>
+          <span class="hu-check"><svg viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg></span>
+        </button>
+        <button class="hu-oc" data-v="pre">
+          <span class="k" data-t="of.k2"></span><span class="t" data-t="of.t2"></span><span class="p">8,99 €</span>
+          <ul><li><i class="y">✓</i><span data-t="of.b1"></span></li><li><i class="y">✓</i><span data-t="of.b2"></span></li><li><i class="y">✓</i><span data-t="of.b3"></span></li></ul>
+          <span class="hu-check"><svg viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg></span>
+        </button>
+      </div>
+    </div>
+    <div class="scr-foot">
+      <button class="hu-btn" id="offerCta"></button>
+      <button class="hu-btn dk" id="offSkip" data-t="of.skip"></button>
+    </div>
+  </div>
+</section>
+
+<!-- ACCOUNT — their sign-up, moved after the purchase -->
+<section class="scr" data-id="account">
+  <div class="scr-top">
+    <div class="hu-paid"><span class="hu-check"><svg viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg></span><div><b class="numtxt"></b><span id="paidLine"></span></div></div>
+    <h2 class="hu-h" style="margin-top:22px" data-t="ac.h"></h2>
+    <p class="hu-sub" data-t="ac.s"></p>
+  </div>
+  <div class="scr-body">
+    <div class="hu-acct">
+      <button class="hu-sso" data-go="tracking"><svg viewBox="0 0 24 24"><path fill="#4285F4" d="M22.6 12.2c0-.8-.1-1.4-.2-2.1H12v4h6a5 5 0 0 1-2.2 3.3v2.7h3.5c2-1.9 3.3-4.6 3.3-7.9z"/><path fill="#34A853" d="M12 23c3 0 5.4-1 7.3-2.7l-3.5-2.7c-1 .7-2.3 1.1-3.8 1.1-2.9 0-5.4-2-6.3-4.6H2.1v2.8A11 11 0 0 0 12 23z"/><path fill="#FBBC05" d="M5.7 14.1a6.6 6.6 0 0 1 0-4.2V7.1H2.1a11 11 0 0 0 0 9.8z"/><path fill="#EA4335" d="M12 5.4c1.6 0 3.1.6 4.2 1.7l3.1-3.1A11 11 0 0 0 2.1 7.1l3.6 2.8C6.6 7.3 9.1 5.4 12 5.4z"/></svg><span data-t="ac.g"></span></button>
+      <button class="hu-sso" id="appleBtn" data-go="tracking"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M16.4 12.6c0-2.6 2.1-3.8 2.2-3.9a4.8 4.8 0 0 0-3.8-2c-1.6-.2-3.1.9-3.9.9s-2-.9-3.4-.9a5 5 0 0 0-4.2 2.6c-1.8 3.1-.5 7.7 1.3 10.2.9 1.2 1.9 2.6 3.2 2.6s1.8-.8 3.3-.8 2 .8 3.4.8 2.2-1.3 3-2.5a10.6 10.6 0 0 0 1.4-2.8 4.4 4.4 0 0 1-2.5-4.2zM13.9 5.1a4.3 4.3 0 0 0 1-3.1 4.4 4.4 0 0 0-2.9 1.5 4.1 4.1 0 0 0-1 3 3.6 3.6 0 0 0 2.9-1.4z"/></svg><span data-t="ac.a"></span></button>
+      <div class="hu-or" data-t="ac.or"></div>
+      <button class="hu-sso em" data-go="tracking"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg><span data-t="ac.e"></span></button>
+    </div>
+    <button class="hu-consent" id="consent"><span class="hu-box"><svg viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg></span><span data-t="ac.c"></span></button>
+    <div style="height:10px"></div>
+  </div>
+  <div class="scr-foot"><p class="hu-legal" data-th="ac.have"></p></div>
+</section>
+
+<!-- TRACKING — their prompt, now after the purchase -->
+<section class="scr scr--trk" data-id="tracking">
+  <div class="scr-top"><div class="hu-nav"><span></span><button class="hu-skip" data-go="home" data-t="skip"></button></div></div>
+  <div class="scr-body dock">
+    <div class="hu-trkcard">
+      <div class="ic"><svg viewBox="0 0 24 24"><path d="M7 11V7a5 5 0 0 1 9.9-1"/><rect x="4" y="11" width="16" height="10" rx="2"/></svg></div>
+      <h4 data-t="tr.h"></h4>
+      <p data-t="tr.p"></p>
+      <button class="hu-btn" data-go="home" data-t="tr.no"></button>
+      <button class="hu-btn" id="trkAllow" data-go="home" data-t="tr.yes"></button>
+    </div>
+    <p class="hu-when" data-t="tr.when" style="margin-bottom:auto"></p>
+  </div>
+  <div class="scr-foot"></div>
+</section>
+
+<!-- HOME -->
+<section class="scr scr--home" data-id="home">
+  <div class="scr-top">
+    <div class="hu-hhead">
+      <svg class="i" viewBox="0 0 24 24" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+      <svg class="w" viewBox="0 0 160 31" id="homeWord"></svg>
+      <svg class="i" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.8-.3 1.7 1.7 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1A1.7 1.7 0 0 0 9 19.4a1.7 1.7 0 0 0-1.8.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.8 1.7 1.7 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1A1.7 1.7 0 0 0 4.6 9a1.7 1.7 0 0 0-.3-1.8l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.8.3H9a1.7 1.7 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.8-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.8V9a1.7 1.7 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1z"/></svg>
+    </div>
+  </div>
+  <div class="scr-body">
+    <div class="hu-banner"><div><p data-t="hm.b"></p><span data-t="hm.v"></span></div><div style="font-size:30px">📱</div></div>
+    <div class="hu-numcard"><div class="av">H</div><div><b class="numtxt"></b><span id="homeLine"></span></div></div>
+  </div>
+  <div class="scr-foot">
+    <div class="hu-hbtns"><button class="hu-btn" data-t="hm.add"></button><button class="hu-btn gr" data-t="hm.cr"></button></div>
+    <p class="hu-bal">BALANCE<b>0.00</b></p>
+  </div>
+</section>
+
+        </div>
+      </div>
+    </div>
+    <div class="demo-cap hidden" id="demoCap"><div class="bar"><i id="demoProg"></i></div><p id="demoTxt"></p><button id="demoStop">Stop</button></div>
+    <div class="chips" id="chips"></div>
+    <p class="chiphint">Jump to any screen — answers already filled in.</p>
+    <div class="qr"><img src="img/qr.svg?v=1" alt="QR code for this prototype"><span><b>Open it on your phone</b>Scan to try the flow in your hand.</span></div>
+  </div>
+  <div class="panelcol"><div class="pn" id="panel"></div></div>
+</div>
+</div><!-- /view-proto -->
+
+<script>
+/* ================= copy, per language (phone screens only) ================= */
+var LANGS = ['en','fr','es'];
+var NUM = '+1 (209) 555-0148';   /* a reserved demo number in the area code from the recording */
+var T = {
+ 'wel.h':   ["Dial in to real savings","Des appels qui font de vraies économies","Llama y ahorra de verdad"],
+ 'wel.cta': ["Get my number","Obtenir mon numéro","Obtener mi número"],
+ 'wel.login':["Log In","Se connecter","Iniciar sesión"],
+ 'wel.legal':["By continuing you agree to the <u>Terms of Service</u> and <u>Privacy Policy</u>.","En continuant, vous acceptez les <u>Conditions d’utilisation</u> et la <u>Politique de confidentialité</u>.","Al continuar, aceptas los <u>Términos del servicio</u> y la <u>Política de privacidad</u>."],
+ 'back':    ["Back","Retour","Atrás"],
+ 'skip':    ["Skip","Passer","Omitir"],
+ 'cont':    ["Continue","Continuer","Continuar"],
+ 'rs.h':    ["What’s your second number for?","À quoi servira votre second numéro ?","¿Para qué es tu segundo número?"],
+ 'rs.s':    ["Pick the main one. You can use it for anything.","Choisissez le principal. Il sert à tout.","Elige el principal. Sirve para todo."],
+ 'rs.next': ["Next: choose your country and area code","Ensuite : choisissez votre pays et votre indicatif","Después: elige tu país y código de área"],
+ 'ld.h':    ["Setting up your number","Configuration de votre numéro","Configurando tu número"],
+ 'ld.2':    ["Voicemail and call forwarding included","Messagerie vocale et renvoi d’appel inclus","Buzón de voz y desvío de llamadas incluidos"],
+ 'us':      ["United States","États-Unis","Estados Unidos"],
+ 'pw.rate': ["<b>4.6</b> · 23K ratings","<b>4,6</b> · 23 k notes","<b>4,6</b> · 23 mil reseñas"],
+ 'pw.dl':   ["<b>25M</b> downloads","<b>25 M</b> téléchargements","<b>25 M</b> descargas"],
+ 'pw.f1':   ["Unlimited calling and texting","Appels et textos illimités","Llamadas y mensajes ilimitados"],
+ 'pw.f2':   ["Local phone number","Numéro de téléphone local","Número de teléfono local"],
+ 'pw.f3':   ["Cancel anytime","Annulez à tout moment","Cancela cuando quieras"],
+ 'pw.m':    ["Monthly Unlimited","Illimité mensuel","Ilimitado mensual"],
+ 'pw.mp':   ["7,99 €/mo","7,99 €/mois","7,99 €/mes"],
+ 'pw.y':    ["Yearly Unlimited","Illimité annuel","Ilimitado anual"],
+ 'pw.yp':   ["79,99 €/year","79,99 €/an","79,99 €/año"],
+ 'pw.enjoy':["Enjoy unlimited access today","Accès illimité dès aujourd’hui","Acceso ilimitado desde hoy"],
+ 'pw.trial':["3-day free trial","Essai gratuit de 3 jours","Prueba gratis de 3 días"],
+ 'pw.other':["View other plans","Voir les autres forfaits","Ver otros planes"],
+ 'pw.bill': ["Billing starts at the end of your free trial. Cancel anytime in the App Store.","Facturation à la fin de l’essai gratuit. Annulable à tout moment dans l’App Store.","El cobro empieza al terminar la prueba gratis. Cancela cuando quieras en el App Store."],
+ 'pw.cta':  ["Start your free 3-day trial","Commencer l’essai gratuit de 3 jours","Empieza tu prueba gratis de 3 días"],
+ 'lg':      ["Terms of Service and Privacy Policy","Conditions d’utilisation et confidentialité","Términos del servicio y privacidad"],
+ 'of.h':    ["Your new phone number is waiting! Don’t leave it behind.","Votre nouveau numéro vous attend ! Ne le laissez pas filer.","¡Tu nuevo número te está esperando! No lo dejes escapar."],
+ 'of.sub':  ["Not ready to subscribe? Keep {n} for 30 days instead.","Pas prêt à vous abonner ? Gardez le {n} pendant 30 jours.","¿No quieres suscribirte? Quédate el {n} 30 días."],
+ 'of.k1':   ["Subscription","Abonnement","Suscripción"],
+ 'of.t1':   ["1 Line","1 ligne","1 línea"],
+ 'of.a1':   ["Unlimited talk & text","Appels et textos illimités","Llamadas y mensajes ilimitados"],
+ 'of.a3':   ["Renews monthly","Renouvelé chaque mois","Se renueva cada mes"],
+ 'of.k2':   ["Prepaid","Prépayé","Prepago"],
+ 'of.t2':   ["30 Day","30 jours","30 días"],
+ 'of.b1':   ["50 min talk time or 150 SMS","50 min d’appel ou 150 SMS","50 min de llamadas o 150 SMS"],
+ 'of.b2':   ["The same number","Le même numéro","El mismo número"],
+ 'of.b3':   ["No subscription","Sans abonnement","Sin suscripción"],
+ 'of.m1':   ["Numbers in 300+ area codes","Numéros dans plus de 300 indicatifs","Números en más de 300 códigos de área"],
+ 'of.m2':   ["Flexible, temporary phone number","Numéro flexible et temporaire","Número flexible y temporal"],
+ 'of.ctaP': ["Keep my number · 8,99 €","Garder mon numéro · 8,99 €","Conservar mi número · 8,99 €"],
+ 'of.ctaS': ["Start your free 3-day trial","Commencer l’essai gratuit de 3 jours","Empieza tu prueba gratis de 3 días"],
+ 'of.skip': ["Skip anyway","Passer quand même","Omitir de todos modos"],
+ 'ac.paidS':["Yours · 3-day free trial started","À vous · essai gratuit de 3 jours lancé","Tuyo · prueba gratis de 3 días iniciada"],
+ 'ac.paidP':["Yours for 30 days · prepaid","À vous pour 30 jours · prépayé","Tuyo durante 30 días · prepago"],
+ 'ac.h':    ["Sign Up","Inscription","Registrarse"],
+ 'ac.s':    ["Save your number to an account so it stays yours on every device.","Enregistrez votre numéro dans un compte pour le garder sur tous vos appareils.","Guarda tu número en una cuenta para tenerlo en todos tus dispositivos."],
+ 'ac.g':    ["Sign up with Google","S’inscrire avec Google","Registrarse con Google"],
+ 'ac.a':    ["Sign up with Apple","S’inscrire avec Apple","Registrarse con Apple"],
+ 'ac.or':   ["or","ou","o"],
+ 'ac.e':    ["Sign up with Email","S’inscrire par e-mail","Registrarse con correo"],
+ 'ac.c':    ["I agree to receive electronic messages from AffinityClick Inc. regarding its products, services and other updates. I understand that I can withdraw my consent at any time.","J’accepte de recevoir des messages électroniques d’AffinityClick Inc. concernant ses produits, services et autres actualités. Je peux retirer mon consentement à tout moment.","Acepto recibir mensajes electrónicos de AffinityClick Inc. sobre sus productos, servicios y novedades. Entiendo que puedo retirar mi consentimiento en cualquier momento."],
+ 'ac.have': ["Already have an account? <u>Log In</u>","Déjà un compte ? <u>Se connecter</u>","¿Ya tienes cuenta? <u>Iniciar sesión</u>"],
+ 'tr.h':    ["Allow “Hushed” to track your activity across other companies’ apps and websites?","Autoriser « Hushed » à suivre votre activité dans les apps et sites web d’autres sociétés ?","¿Permitir que “Hushed” rastree tu actividad en apps y sitios web de otras empresas?"],
+ 'tr.p':    ["This helps us track your in-app purchases to make sure you get discounts and promotions tailored to you.","Cela nous aide à suivre vos achats intégrés pour vous proposer des réductions et promotions adaptées.","Esto nos ayuda a seguir tus compras en la app para ofrecerte descuentos y promociones a tu medida."],
+ 'tr.no':   ["Ask App Not to Track","Demander à l’app de ne pas suivre","Pedir a la app que no rastree"],
+ 'tr.yes':  ["Allow","Autoriser","Permitir"],
+ 'tr.when': ["Now asked after the purchase, not before the paywall","Demandé après l’achat, plus avant le paywall","Ahora se pide después de la compra, no antes del paywall"],
+ 'hm.b':    ["Get 15% off international mobile data from aloSIM","15 % de réduction sur les données mobiles internationales avec aloSIM","15 % de descuento en datos móviles internacionales con aloSIM"],
+ 'hm.v':    ["View Details","Voir les détails","Ver detalles"],
+ 'hm.add':  ["+ Add Number","+ Ajouter un numéro","+ Añadir número"],
+ 'hm.cr':   ["Get Credits","Crédits","Créditos"],
+ 'hm.line': ["California (209) · {r}","Californie (209) · {r}","California (209) · {r}"]
+};
+var SLIDES = [
+  ["Call and text on local phone numbers, over Wi-Fi or data.","Appelez et textez avec des numéros locaux, en Wi-Fi ou en données mobiles.","Llama y envía mensajes con números locales, por wifi o datos."],
+  ["Call logs, messages, and contacts stay securely within Hushed.","Historique d’appels, messages et contacts restent en sécurité dans Hushed.","Llamadas, mensajes y contactos se quedan seguros dentro de Hushed."],
+  ["Talk on the phone, or send photos, videos, and voice recordings.","Parlez au téléphone ou envoyez photos, vidéos et messages vocaux.","Habla por teléfono o envía fotos, vídeos y notas de voz."],
+  ["Each number comes with free voicemail, call forwarding, and more!","Chaque numéro inclut messagerie vocale, renvoi d’appel et plus encore !","¡Cada número incluye buzón de voz, desvío de llamadas y más!"]
+];
+/* the reasons are the ones your App Store listing and hushed.com name */
+var REASONS = [
+  {k:'dating',  em:'💘', l:['Online dating','Rencontres en ligne','Citas en línea'],
+   h:['Ready for your next date?','Prêt pour votre prochain rendez-vous ?','¿Listo para tu próxima cita?'],
+   x:['Give matches this number, not your own','Donnez ce numéro, pas le vôtre','Da este número a tus matches, no el tuyo']},
+  {k:'selling', em:'🏷️', l:['Selling items online','Vendre en ligne','Vender en línea'],
+   h:['Ready to post your listing?','Prêt à publier votre annonce ?','¿Listo para publicar tu anuncio?'],
+   x:['Add it to listings, remove it later','Ajoutez-le à vos annonces, retirez-le ensuite','Ponlo en tus anuncios y quítalo al terminar']},
+  {k:'travel',  em:'✈️', l:['Travel','Voyage','Viajes'],
+   h:['Ready for your trip?','Prêt pour votre voyage ?','¿Listo para tu viaje?'],
+   x:['Call and text over Wi-Fi or data, anywhere','Appels et textos en Wi-Fi, partout','Llama y escribe por wifi o datos, donde sea']},
+  {k:'moving',  em:'📦', l:['Moving','Déménagement','Mudanza'],
+   h:['Ready for the move?','Prêt pour le déménagement ?','¿Listo para la mudanza?'],
+   x:['Your new area code before you move','Votre nouvel indicatif avant d’arriver','Tu nuevo código antes de mudarte']},
+  {k:'family',  em:'👋', l:['Family & friends','Famille et amis','Familia y amigos'],
+   h:['Ready to stay in touch?','Prêt à garder le contact ?','¿Listo para seguir en contacto?'],
+   x:['A local area code that’s easy to call','Un indicatif local facile à appeler','Un código de área local fácil de llamar']},
+  {k:'shopping',em:'🛍️', l:['Shopping & sign-ups','Achats et inscriptions','Compras y registros'],
+   h:['Ready for sign-ups without the spam?','Prêt pour les inscriptions sans spam ?','¿Listo para registrarte sin spam?'],
+   x:['Use it for store programs, offers and forms','Pour fidélité, offres et formulaires','Para tiendas, ofertas y formularios']},
+  {k:'privacy', em:'🔒', l:['Protecting my privacy','Protéger ma vie privée','Proteger mi privacidad'],
+   h:['Ready to keep your number private?','Prêt à garder votre numéro privé ?','¿Listo para mantener tu número privado?'],
+   x:['Keep your personal number to yourself','Gardez votre numéro personnel pour vous','Guarda tu número personal para ti']}
+];
+var RK = {}; REASONS.forEach(function(r){ RK[r.k]=r; });
+/* verbatim from hushed.com — quotes stay in English */
+var QUOTES = [
+  ['“[Hushed is] a viable, more lightweight alternative to something like Google Voice.”','Sarah Perez, TechCrunch'],
+  ['“Ideal for communicating with anyone you don’t necessarily want to have your number, like the person on Craigslist or a blind date you’re meeting for the first time.”','Allen Henry, Lifehacker'],
+  ['“Great communication tool. It works well, and the customer support is excellent.”','App Store review']
+];
+/* Hushed wordmark, from hushed.com */
+var WORD='<g fill="currentColor"><path d="M68.1 31c-2 0-3.7-.3-5.2-.9-1.5-.6-2.7-1.5-3.6-2.5-.9-1.1-1.4-2.3-1.6-3.7h5.8c.2.8.7 1.5 1.5 2.1.8.6 1.8.9 3.1.9s2.2-.2 2.8-.7c.6-.5.9-1 .9-1.7 0-.9-.4-1.5-1.3-1.8-.8-.3-2-.6-3.5-1-1-.2-1.9-.4-2.9-.7-1-.3-1.9-.6-2.7-1.1-.8-.4-1.5-1-2-1.7-.5-.7-.8-1.5-.8-2.6 0-1.9.8-3.4 2.4-4.7 1.6-1.3 3.8-1.9 6.6-1.9 2.6 0 4.7.6 6.3 1.7 1.6 1.2 2.5 2.8 2.8 4.8h-5.4c-.3-1.6-1.6-2.3-3.7-2.3-1.1 0-1.9.2-2.5.6-.6.4-.9.9-.9 1.5s.4 1.1 1.3 1.5c.9.4 2 .7 3.5 1 1.6.3 3 .7 4.3 1.1 1.3.4 2.3 1 3.1 1.8.8.8 1.2 2 1.2 3.5 0 1.3-.3 2.5-1.1 3.5-.7 1-1.8 1.9-3.2 2.5-1.4.6-3.1.9-5 .9"/><path d="M120.6 13.4c-1.4 0-2.6.4-3.7 1.1-1.1.7-1.8 1.9-2.1 3.4h11.1c-.1-1.4-.6-2.5-1.6-3.3-1-.8-2.2-1.2-3.7-1.2m0 17.6c-2.2 0-4.2-.5-6-1.4-1.7-.9-3.1-2.2-4.1-3.8-1-1.6-1.5-3.5-1.5-5.7s.5-4.1 1.5-5.8c1-1.7 2.3-3 4-3.9 1.7-.9 3.7-1.4 6.1-1.4 2.2 0 4.1.5 5.8 1.4 1.7.9 3 2.1 3.9 3.7.9 1.6 1.4 3.3 1.4 5.2v1l-.1 1.1h-16.9c.1 1.6.7 2.9 1.8 3.9 1.1.9 2.4 1.4 4 1.4 1.2 0 2.1-.2 2.9-.7.8-.5 1.4-1.1 1.8-1.9h5.8c-.4 1.3-1.1 2.5-2.1 3.6-1 1.1-2.2 1.9-3.6 2.6-1.4.6-3 .9-4.8.9"/><path d="M53.1 9.5h-5.7v10.8c0 1.9-.5 3.4-1.5 4.5-1 1.1-2.3 1.6-3.9 1.6-1.7 0-2.9-.5-3.7-1.4-.8-1-1.2-2.3-1.2-4.1V9.5h-5.7v11.8c0 3.2.8 5.6 2.3 7.2 1.5 1.6 3.7 2.5 6.4 2.5.8 0 1.6-.1 2.3-.2 2-.5 3.8-1.8 5.2-3.6-.3 1.4-.8 2.5-1.3 3.3h6.9V9.5z"/><path d="M152.6 24.5c-1.2 1.2-2.7 1.8-4.6 1.8-1.9 0-3.3-.6-4.5-1.8-1.2-1.2-1.8-2.7-1.8-4.5s.6-3.3 1.8-4.5c1.2-1.2 2.7-1.7 4.5-1.7s3.4.6 4.6 1.8c1.2 1.2 1.8 2.7 1.8 4.5s-.6 3.3-1.8 4.5M154.3 0v12.4c-.8-1.1-1.8-1.9-3-2.5-1.3-.6-2.7-.9-4.4-.9-2.1 0-4 .5-5.6 1.4-1.6 1-2.9 2.2-3.9 3.9-1 1.7-1.4 3.5-1.4 5.7s.5 4 1.4 5.7c1 1.7 2.3 3 3.9 3.9 1.6 1 3.5 1.4 5.6 1.4 1.9 0 3.4-.4 4.6-1.1.7-.4 1.3-.9 1.9-1.4v.1c.5-.4.9-.9 1.3-1.4-.3 1.4-.8 2.5-1.3 3.3l6.7-.1V0h-5.8z"/><path d="M20.5.2v13l-7.3 0c-1.6 0-3.1.3-4.4 1-1.3.7-2.3 1.6-3 2.7-.3.5-.5 1-.7 1.6-.3-2.1.2-3.4.7-4.2V.1H0v30.5h5.7v-6.7c0-1.9.5-3.4 1.6-4.5 1.1-1.1 2.4-1.6 4-1.6l9.1 0v12.9h5.7V.2h-5.7z"/><path d="M102.3 11.4c-1.5-1.6-3.6-2.5-6.4-2.5-1.6 0-3.1.3-4.4 1-1.1.6-2 1.3-2.7 2.2-.4.6-.8 1.3-1 2-.3-2 .2-3.4.7-4.2V0h-5.7v30.5h5.7V19.6c0-1.9.5-3.4 1.6-4.5 1.1-1.1 2.4-1.6 4-1.6s2.8.5 3.6 1.4c.8 1 1.1 2.3 1.1 4.1v11.3h5.7V18.6c0-3.2-.8-5.6-2.3-7.2"/></g>';
+
+/* ================= state ================= */
+function defaults(){ return { lang:S0.lang, theme:S0.theme, reason:'dating', plan:'month', pick:'pre', consent:false, paid:'sub' }; }
+var S0 = {lang:'en', theme:'dark'};
+var S = defaults();
+function L(){ return LANGS.indexOf(S.lang); }
+function t(k,v){ var s=(T[k]||[k])[L()]; if(v) Object.keys(v).forEach(function(x){ s=s.split('{'+x+'}').join(v[x]); }); return s; }
+
+/* ================= marks: the scalloped H badge ================= */
+function blob(cx,cy,r,amp,lobes,ph){ var p='',n=144; for(var i=0;i<=n;i++){ var a=i/n*2*Math.PI, rr=r+amp*Math.sin(lobes*a+ph)+amp*.35*Math.sin((lobes-3)*a+1.3);
+  p+=(i?'L':'M')+(cx+rr*Math.cos(a)).toFixed(2)+' '+(cy+rr*Math.sin(a)).toFixed(2); } return p+'Z'; }
+var HGLYPH='<path d="M47 41v38M73 41v38M47 63c8-6 18-7 26-3" fill="none" stroke="#fff" stroke-width="7.5" stroke-linecap="round"/>';
+function badgeSVG(halo){ return '<svg viewBox="0 0 120 120">'+(halo?'<path d="'+blob(60,60,58,2.6,9,.4)+'" fill="var(--hu-halo2)"/><path d="'+blob(60,60,50,2.8,9,.9)+'" fill="var(--hu-halo)"/>':'')
+  +'<path d="'+blob(60,60,halo?38:52,halo?2.8:3.6,9,.2)+'" fill="#E56543"/>'+(halo?'<g transform="translate(60 60) scale(.73) translate(-60 -60)">'+HGLYPH+'</g>':HGLYPH)+'</svg>'; }
+document.querySelectorAll('svg.hbadge').forEach(function(s){ s.outerHTML=badgeSVG(false).replace('<svg ','<svg class="'+s.getAttribute('class')+'" '); });
+var GL=[['M8 4h3l2 5-2 1a11 11 0 0 0 5 5l1-2 5 2v3a2 2 0 0 1-2 2A16 16 0 0 1 6 6a2 2 0 0 1 2-2z',6,30],['M21 12a8 8 0 0 1-12 7l-5 1 1-4a8 8 0 1 1 16-4z',78,6],['M8 4h3l2 5-2 1a11 11 0 0 0 5 5l1-2 5 2v3a2 2 0 0 1-2 2A16 16 0 0 1 6 6a2 2 0 0 1 2-2z',84,62],['M6 11V8a6 6 0 0 1 12 0v3M5 11h14v10H5z',72,88],['M21 12a8 8 0 0 1-12 7l-5 1 1-4a8 8 0 1 1 16-4z',8,82]];
+function glyphs(){ return '<div class="hu-glyphs">'+GL.map(function(g){ return '<svg viewBox="0 0 24 24" style="left:'+g[1]+'%;top:'+g[2]+'%"><path d="'+g[0]+'"/></svg>'; }).join('')+'</div>'; }
+document.getElementById('welBadge').innerHTML=glyphs()+badgeSVG(true);
+document.getElementById('loadBadge').innerHTML=badgeSVG(true);
+document.getElementById('homeWord').innerHTML=WORD;
+
+/* ================= builders (re-run on language change) ================= */
+var ck='<span class="hu-check"><svg viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg></span>';
+var slide=0, slideTimer=null;
+function buildWelcome(){
+  document.getElementById('wTrack').innerHTML=SLIDES.map(function(s){ return '<div class="hu-wslide"><h2 class="hu-wh">'+t('wel.h')+'</h2><p class="hu-ws">'+s[L()]+'</p></div>'; }).join('');
+  document.getElementById('wDots').innerHTML=SLIDES.map(function(){ return '<i></i>'; }).join('');
+  paintSlide();
+}
+function paintSlide(){ document.getElementById('wTrack').style.transform='translateX('+(-slide*100)+'%)';
+  document.querySelectorAll('#wDots i').forEach(function(d,i){ d.classList.toggle('on',i===slide); }); }
+function startSlides(){ stopSlides(); slideTimer=setInterval(function(){ slide=(slide+1)%SLIDES.length; paintSlide(); },2600); }
+function stopSlides(){ if(slideTimer){ clearInterval(slideTimer); slideTimer=null; } }
+function buildReasons(){ var g=document.getElementById('reasonList'); g.innerHTML='';
+  REASONS.forEach(function(r){ var b=document.createElement('button'); b.className='hu-row'; b.dataset.v=r.k;
+    b.innerHTML='<span class="em">'+r.em+'</span><span class="lb">'+r.l[L()]+'</span>'+ck+'<svg class="cv" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="m9 6 6 6-6 6"/></svg>';
+    b.addEventListener('click',function(){ S.reason=r.k; syncScreen(); });
+    g.appendChild(b); }); }
+function applyStatic(){
+  document.documentElement.lang=S.lang;
+  document.querySelectorAll('[data-t]').forEach(function(el){ el.textContent=t(el.dataset.t); });
+  document.querySelectorAll('[data-th]').forEach(function(el){ el.innerHTML=t(el.dataset.th); });
+  buildWelcome(); buildReasons();
+}
+
+/* ================= everything downstream reads S ================= */
+var ICO={inf:'<path d="M6.5 8.5a3.5 3.5 0 1 0 0 7c3 0 4-7 7-7a3.5 3.5 0 1 1 0 7c-3 0-4-7-7-7z"/>',
+  user:'<circle cx="12" cy="8" r="3.5"/><path d="M5 20a7 7 0 0 1 14 0"/>',
+  x:'<circle cx="12" cy="12" r="8"/><path d="m6.5 6.5 11 11"/>', star:'<path d="M12 4l2.4 5 5.4.6-4 3.7 1.1 5.4L12 16l-4.9 2.7 1.1-5.4-4-3.7 5.4-.6z"/>'};
+function syncScreen(){
+  var li=L(), r=RK[S.reason];
+  document.querySelectorAll('.numtxt').forEach(function(el){ el.textContent=NUM; });
+  document.querySelectorAll('#reasonList .hu-row').forEach(function(b){ b.classList.toggle('on', b.dataset.v===S.reason); });
+  /* loader reads back the number and the reason */
+  var st=document.querySelectorAll('#loadSteps .hu-ls .t');
+  st[0].textContent=NUM+' · California (209)';
+  st[1].textContent=t('ld.2');
+  st[2].textContent=r.x[li];
+  /* paywall: headline names the reason; their three lines stay, the reason line leads */
+  document.getElementById('payH').textContent=r.h[li];
+  document.getElementById('featList').innerHTML=
+    '<div class="hu-f me"><svg viewBox="0 0 24 24">'+ICO.star+'</svg><span>'+r.x[li]+'</span></div>'
+   +'<div class="hu-f"><svg viewBox="0 0 24 24">'+ICO.inf+'</svg><span>'+t('pw.f1')+'</span></div>'
+   +'<div class="hu-f"><svg viewBox="0 0 24 24">'+ICO.user+'</svg><span>'+t('pw.f2')+'</span></div>'
+   +'<div class="hu-f"><svg viewBox="0 0 24 24">'+ICO.x+'</svg><span>'+t('pw.f3')+'</span></div>';
+  document.querySelectorAll('#planList .hu-plan').forEach(function(b){ b.classList.toggle('on', b.dataset.v===S.plan); });
+  /* offer */
+  document.getElementById('ofSub').innerHTML=t('of.sub',{n:'<span style="white-space:nowrap">'+NUM+'</span>'});
+  document.querySelectorAll('#offerCmp .hu-oc').forEach(function(b){ b.classList.toggle('on', (b.dataset.v==='pre')===(S.pick==='pre')); });
+  document.getElementById('offerCta').textContent = S.pick==='pre' ? t('of.ctaP') : t('of.ctaS');
+  /* after purchase */
+  document.getElementById('paidLine').textContent = S.paid==='pre' ? t('ac.paidP') : t('ac.paidS');
+  document.getElementById('consent').classList.toggle('on',S.consent);
+  document.getElementById('homeLine').textContent=t('hm.line',{r:r.l[li]});
+}
+
+/* ================= router ================= */
+var ORDER=['welcome','reason','loader','paywall','offer','account','tracking','home'];
+var LABEL={welcome:'Welcome',reason:'Reason',loader:'Loader',paywall:'Paywall',offer:'Offer on Skip',account:'Account',tracking:'Tracking',home:'Home'};
+var scr={}, hist=[], cur='welcome', loadTimers=[];
+document.querySelectorAll('.scr').forEach(function(s){ scr[s.dataset.id]=s; });
+
+function chrome(){ var light=S.theme==='light';
+  document.getElementById('sbar').classList.toggle('ink',light); document.getElementById('homebar').classList.toggle('ink',light); }
+function enter(id){ chrome(); paintChips(); paintPanel(); clearLoad();
+  if(id==='welcome') startSlides(); else stopSlides();
+  if(id==='loader') runLoader(); }
+function go(id,opts){
+  opts=opts||{}; if(id===cur) return;
+  var from=scr[cur], to=scr[id];
+  if(!opts.back) hist.push(cur);
+  if(from && !to.dataset.overlay){ from.classList.remove('is-active');
+    if(!from.dataset.overlay) from.classList.add('is-past'); }
+  Object.keys(scr).forEach(function(k){ if(k!==id&&k!==cur&&!(to.dataset.overlay&&k==='paywall')) scr[k].classList.remove('is-active'); });
+  if(from && from.dataset.overlay) scr.paywall.classList.remove('is-active');
+  to.classList.remove('is-past'); to.classList.add('is-active');
+  cur=id; enter(id);
+}
+function back(){
+  if(!hist.length) return;
+  var prev=hist.pop();
+  scr[cur].classList.remove('is-active');
+  scr[prev].classList.remove('is-past'); scr[prev].classList.add('is-active');
+  cur=prev; enter(prev);
+}
+function jump(id){
+  var i=ORDER.indexOf(id);
+  Object.keys(scr).forEach(function(k){ scr[k].classList.add('nofx'); scr[k].classList.remove('is-active','is-past'); });
+  hist=ORDER.slice(0,i<0?0:i).filter(function(k){ return k!=='offer'; });
+  if(id==='offer') scr.paywall.classList.add('is-active');
+  scr[id].classList.add('is-active'); cur=id;
+  requestAnimationFrame(function(){ requestAnimationFrame(function(){
+    Object.keys(scr).forEach(function(k){ scr[k].classList.remove('nofx'); }); }); });
+  syncScreen(); enter(id);
+}
+function paintChips(){
+  var c=document.getElementById('chips');
+  if(!c.children.length){ ORDER.forEach(function(id){
+      var b=document.createElement('button'); b.className='chip'+(id==='offer'?' offer':''); b.textContent=LABEL[id];
+      b.dataset.id=id; b.onclick=function(){ stopDemo(); jump(id); }; c.appendChild(b); }); }
+  c.querySelectorAll('.chip').forEach(function(b){ b.classList.toggle('on', b.dataset.id===cur); });
+}
+function clearLoad(){ loadTimers.forEach(clearTimeout); loadTimers=[]; }
+function runLoader(){
+  var k=demo.on?0.48:1, steps=[].slice.call(document.querySelectorAll('#loadSteps .hu-ls'));
+  steps.forEach(function(s){ s.classList.remove('on'); });
+  function showQuote(i){ document.getElementById('qText').textContent=QUOTES[i][0];
+    document.getElementById('qWho').textContent=QUOTES[i][1];
+    document.querySelectorAll('#qDots i').forEach(function(d,n){ d.classList.toggle('on',n===i); }); }
+  showQuote(0);
+  steps.forEach(function(s,i){ loadTimers.push(setTimeout(function(){ s.classList.add('on'); },(600+i*900)*k)); });
+  [1,2].forEach(function(i){ loadTimers.push(setTimeout(function(){ showQuote(i); },(1700+(i-1)*1700)*k)); });
+  loadTimers.push(setTimeout(function(){ if(cur==='loader') go('paywall'); },5000*k));
+}
+
+/* ================= wiring ================= */
+document.querySelectorAll('[data-go]').forEach(function(b){ b.addEventListener('click',function(){ if(!b.disabled) go(b.dataset.go); }); });
+document.querySelectorAll('[data-back]').forEach(function(b){ b.addEventListener('click',back); });
+document.querySelectorAll('#planList .hu-plan').forEach(function(b){ b.addEventListener('click',function(){ S.plan=b.dataset.v; syncScreen(); }); });
+document.querySelectorAll('#offerCmp .hu-oc').forEach(function(b){ b.addEventListener('click',function(){ S.pick=b.dataset.v; syncScreen(); }); });
+document.getElementById('paySkip').addEventListener('click',function(){ go('offer'); });
+document.getElementById('payCta').addEventListener('click',function(){ S.paid='sub'; syncScreen(); go('account'); });
+document.getElementById('offerCta').addEventListener('click',function(){ S.paid=S.pick; syncScreen(); go('account'); });
+document.getElementById('offSkip').addEventListener('click',function(){ go('home'); });
+document.getElementById('consent').addEventListener('click',function(){ S.consent=!S.consent; syncScreen(); });
+document.getElementById('wTrack').parentNode.addEventListener('click',function(){ slide=(slide+1)%SLIDES.length; paintSlide(); startSlides(); });
+
+function setSeg(id,attr,val){ document.querySelectorAll('#'+id+' button').forEach(function(b){ b.classList.toggle('on', b.dataset[attr]===val); }); }
+function setLang(l){ S.lang=l; S0.lang=l; setSeg('segLang','lang',l); applyStatic(); syncScreen(); paintPanel(); }
+function setTheme(th){ S.theme=th; S0.theme=th; document.getElementById('phoneIn').classList.toggle('light',th==='light'); setSeg('segTheme','theme',th); chrome(); }
+document.querySelectorAll('#segLang button').forEach(function(b){ b.addEventListener('click',function(){ stopDemo(); setLang(b.dataset.lang); }); });
+document.querySelectorAll('#segTheme button').forEach(function(b){ b.addEventListener('click',function(){ setTheme(b.dataset.theme); }); });
+
+/* ================= the 30-second walkthrough ================= */
+var demo={tok:0,on:false,t0:0,iv:null}, finger=document.getElementById('finger'), phoneIn=document.getElementById('phoneIn');
+function W(ms){ return new Promise(function(r){ setTimeout(r,ms); }); }
+function cap(txt){ document.getElementById('demoTxt').textContent=txt; }
+async function tap(sel,tok){
+  if(demo.tok!==tok) throw 0;
+  var el=document.querySelector(sel); if(!el) return;
+  var r=el.getBoundingClientRect(), p=phoneIn.getBoundingClientRect(), z=p.width/phoneIn.offsetWidth||1;
+  finger.style.left=((r.left-p.left+r.width/2)/z)+'px'; finger.style.top=((r.top-p.top+r.height/2)/z)+'px';
+  finger.classList.add('show'); await W(380); if(demo.tok!==tok) throw 0;
+  finger.classList.add('press'); await W(120); finger.classList.remove('press'); el.click(); await W(160);
+  if(demo.tok!==tok) throw 0;
+}
+async function pause(ms,tok){ await W(ms); if(demo.tok!==tok) throw 0; }
+function startDemo(){
+  stopDemo(); var tok=++demo.tok; demo.on=true; demo.t0=Date.now();
+  var keep={lang:S.lang,theme:S.theme}; S=defaults(); S.lang=keep.lang; S.theme=keep.theme; S.reason='privacy';
+  applyStatic(); jump('welcome');
+  document.getElementById('demoCap').classList.remove('hidden');
+  demo.iv=setInterval(function(){ document.getElementById('demoProg').style.width=Math.min(100,(Date.now()-demo.t0)/290)+'%'; },200);
+  (async function(){
+    try{
+      cap('A new install opens on your welcome carousel. Sign-up no longer comes next.'); await pause(1900,tok);
+      await tap('#welCta',tok);
+      cap('One question: what is the number for? Say, online dating.'); await pause(900,tok);
+      await tap('#reasonList [data-v=dating]',tok); await pause(500,tok); await tap('#reasonBtn',tok);
+      cap('Their number and their reason, read back while it sets up. Your country and area-code pickers sit just before this.'); await pause(2800,tok);
+      cap('The paywall names the date, and shows your 4.6 stars and 25M downloads.'); await pause(2300,tok);
+      await tap('#planList [data-v=year]',tok); await pause(700,tok); await tap('#planList [data-v=month]',tok); await pause(600,tok);
+      cap('They tap Skip. Your own sheet, now with a real second option: 30 days prepaid, no subscription.'); await tap('#paySkip',tok); await pause(2000,tok);
+      await tap('#offerCmp [data-v=sub]',tok); await pause(700,tok); await tap('#offerCmp [data-v=pre]',tok); await pause(900,tok);
+      cap('Sign-up and the tracking prompt now come after this. See Account and Tracking under the phone.');
+      finger.classList.remove('show'); await pause(2200,tok); stopDemo();
+    }catch(e){}
+  })();
+}
+function stopDemo(){ if(!demo.on) return; demo.tok++; demo.on=false; clearInterval(demo.iv); finger.classList.remove('show','press');
+  document.getElementById('demoCap').classList.add('hidden'); if(cur==='loader') runLoader(); }
+document.getElementById('demoBtn').addEventListener('click',startDemo);
+document.getElementById('demoStop').addEventListener('click',stopDemo);
+phoneIn.addEventListener('pointerdown',function(e){ if(e.isTrusted && demo.on) stopDemo(); });
+</script>
+<script>
+/* ---- the short panel: hypothesis + potential outcome, nothing else ---- */
+var PANEL = {
+welcome:{n:1,t:'Show the number before the sign-up',
+ hyp:'Try sending this button straight to the number, <b>because today Sign Up opens Google, Apple or email, then a terms sheet, then Apple’s own sheet and a spinner, all before anyone has seen a number</b>. The account moves to right after the purchase.',
+ kept:'Your welcome carousel untouched: the H badge and its halo, the faint phone and chat icons, “Dial in to real savings”, your four slides and pager, the coral pill and the outlined Log In. The terms line from your sheet now sits under the buttons.',
+ out:'CR +8% · ARPU +17%'},
+reason:{n:3,t:'Put their reason in the paywall headline',
+ hyp:'Try one question before the number picker, <b>because the paywall says “Ready to get started?” to everyone, while your App Store listing already names why people come</b>. Every option here is one of your own listed reasons. Pick one and the loader and paywall change.',
+ kept:'Your country-card shape, coral selected border and check, Back in your header. Your country, area-code and number screens follow this one exactly as they ship.',
+ out:'CR +15–20%'},
+loader:{n:3,t:'Put their reason in the paywall headline',
+ hyp:'Try a short beat that reads their number and their reason back, <b>because the picked number is the moment of value and today it passes straight to the price</b>. The middle line is from your listing; the quotes are verbatim from hushed.com.',
+ kept:'Your H badge and halo on your wine background, your serif in coral.',
+ out:'CR +15–20%'},
+paywall:{n:3,t:'Put their reason in the paywall headline',
+ hyp:'Try replacing “Ready to get started?” with their reason, and leading the list with what the number does for it, <b>because the flow now knows why they came</b>. Go back to Reason and pick Selling — the headline becomes your listing line.',
+ n2:4, hyp2:'Try your 4.6 from 23K ratings and 25 million downloads right under the number, <b>because nothing between install and price tells a new user that anyone else trusts you with their calls</b>.',
+ out2:'CR +10–15%',
+ kept:'Your paywall as it ships: VOICE · SMS · MMS chips, the serif number, the flag line, your three feature lines, Monthly preselected, both plan cards with the 🎁 trial bar, View other plans, the docked billing line and CTA.',
+ out:'CR +15–20%'},
+offer:{n:2,t:'Give Skip a real second option',
+ hyp:'Try putting your 30 Day prepaid plan next to the subscription on this sheet, <b>because someone who skips a trial is often wary of auto-renewal, and today their only choices are Back or Skip anyway</b>. 8,99 € is your own price from View other plans. Nothing here is discounted or invented.',
+ kept:'Your exit sheet: white, the handle, “Your new phone number is waiting! Don’t leave it behind.”, the coral bullets, the coral CTA and the dark Skip anyway.',
+ out:'ARPU +10–15%'},
+account:{n:1,t:'Show the number before the sign-up',
+ hyp:'Try asking for the account here, <b>because once the number is theirs, signing up is how they keep it, not a toll before they have seen it</b>. Your marketing-consent box moves with it.',
+ kept:'Your Sign Up sheet: Google and Apple in white pills, Email in coral, “or”, “Already have an account? Log In”, and your consent wording verbatim.',
+ out:'CR +8% · ARPU +17%'},
+tracking:{n:5,t:'Ask about tracking after the purchase',
+ hyp:'Try showing this after the purchase, <b>because today it lands on top of the country picker, before the paywall, and pulls attention at the moment you are building momentum</b>.',
+ kept:'Your own explanation and both buttons, word for word. The app still makes the system call; only the moment changes.',
+ out:'CR +10–15%'},
+home:{ctx:true,t:'Home',
+ kept:'Where the flow hands over to the app. Your home screen as it ships, with the aloSIM banner and Add Number and Get Credits; the new number is already in it, along with the reason they gave.'}
+};
+function outBlock(lab,val){ return '<div class="pn-out"><div class="lab">'+lab+'</div><div class="v">'+val+'</div></div>'; }
+function paintPanel(){
+  var d=PANEL[cur]; if(!d) return;
+  var h='';
+  if(d.ctx){
+    h += '<div class="pn-n ctx">Context · no change proposed</div><h3 class="pn-t">'+d.t+'</h3><div class="pn-kept">'+d.kept+'</div>';
+  } else {
+    h += '<div class="pn-n">Idea '+d.n+' of 5</div><h3 class="pn-t">'+d.t+'</h3><p class="pn-hyp">'+d.hyp+'</p>'
+       + outBlock('Potential outcome · based on Adapty data', d.out);
+    if(d.hyp2){
+      h += '<div class="pn-sep"></div><div class="pn-n">Idea '+d.n2+' of 5</div>'
+         + '<p class="pn-hyp" style="margin-top:12px">'+d.hyp2+'</p>'
+         + outBlock('Potential outcome · based on Adapty data', d.out2);
+    }
+    h += '<div class="pn-kept"><b>Your design, unchanged.</b> '+d.kept+'</div>';
+  }
+  if(S.lang!=='en') h += '<div class="pn-kept"><b>Language.</b> Screens are shown in '+(S.lang==='fr'?'French':'Spanish')+', translated by us, to show one flow serving every market Hushed ships in. Store prices stay as published; the hushed.com quotes stay verbatim in English.</div>';
+  h += '<div class="pn-foot">Ranges are Adapty’s expected effect from tests across 30,000+ subscription apps — not measured lift for Hushed. '
+     + 'Prices, ratings, quotes and feature lines come from your own published material.</div>';
+  document.getElementById('panel').innerHTML = h;
+}
+
+/* ---- views, jumps from the overview ---- */
+function showView(v){
+  if(v!=='proto') stopDemo();
+  document.querySelectorAll('.view').forEach(function(x){ x.classList.remove('on'); });
+  document.getElementById('view-'+v).classList.add('on');
+  document.querySelectorAll('.nav-links button[data-view]').forEach(function(b){ b.classList.toggle('on', b.dataset.view===v); });
+  window.scrollTo(0,0);
+}
+document.querySelectorAll('[data-view]').forEach(function(b){ b.addEventListener('click',function(){ showView(b.dataset.view); }); });
+document.querySelectorAll('.idea[data-jump]').forEach(function(b){
+  b.addEventListener('click',function(){ showView('proto'); jump(b.dataset.jump); });
+});
+document.querySelectorAll('[data-demo]').forEach(function(b){ b.addEventListener('click',function(){ showView('proto'); startDemo(); }); });
+
+applyStatic();
+scr.welcome.classList.add('is-active');
+syncScreen(); enter('welcome');
+if(/[?&]open=proto/.test(location.search)) showView('proto');
+</script>
+</body>
+</html>
